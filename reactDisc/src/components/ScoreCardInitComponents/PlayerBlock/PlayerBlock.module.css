@@ -1,0 +1,11 @@
+.PlayerBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+}
+
+h4 {
+    padding: 10px;
+    margin: 10px;
+}

@@ -1,0 +1,39 @@
+.holeCardButton {
+    width: 22px;
+    height: 22px;
+    background-color: #d0fdfa;
+    border: 2px solid #034d70;
+    border-radius: 50%;
+    text-align: center;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.activeButton {
+    color: white;
+    background-color: #034d70;
+}
+
+.holeCardButton:hover {
+    background-color: #034d70;
+    color: white;
+}
+
+.holeCardButton p {
+    font-weight: bold;
+    font-size: 0.7rem;
+    margin: 3px;
+}
+
+@media (min-width: 660px) {
+    .holeCardButton {
+        width: 25px;
+        height: 25px;
+    }
+
+    .holeCardButton p {
+        font-weight: bold;
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+}

@@ -1,0 +1,52 @@
+.KeyboardContainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.Keyboard {
+    height: 25vh;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr ;
+    grid-template-rows: 4fr 4fr 4fr 4fr;
+}
+
+.Keyboard div {
+    margin: 3px;
+    border-radius: 3px;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+@media (min-width: 500px) {
+    .Keyboard{
+        width: 70%;
+    }
+}
+
+@media (min-width: 700px) {
+    .Keyboard{
+        width: 60%;
+    }
+}
+
+@media (min-width: 800px) {
+    .Keyboard{
+        width: 50%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .Keyboard{
+        width: 40%;
+    }
+}

@@ -1,0 +1,32 @@
+.personScoring {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+.personScoringActive {
+  border-width: 0 3px 0 3px;
+  border-color: pink;
+  border-style: solid;
+}
+
+.scoreInput {
+    border: 2px solid lightblue;
+    height: 30px;
+    width: 30px;
+    margin-right: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,8 @@
+export const START_ROUND_CLICKED = 'START_ROUND_CLICKED';
+export const PLAYER_ADDED = 'PLAYER_ADDED';
+export const COURSE_SELECTED = 'COURSE_SELECTED';
+
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
