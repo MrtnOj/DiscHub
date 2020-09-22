@@ -109,20 +109,12 @@ class Card extends Component {
         this.setState({ baskets: newActive, activePlayer: this.props.players[0].id });
     }
 
-
-    // onScoreInputChange = (event, holeNr, player) => {
-    //     const updatedScoreInputs = this.state.baskets;
-    //     const updatedScoreInput = updatedScoreInputs[holeNr-1];
-    //     updatedScoreInput[`${player}`] = event.target.value;
-    //     updatedScoreInputs[holeNr-1] = updatedScoreInput;
-    //     this.setState({ baskets: updatedScoreInputs })
-    // };
-
     submitScoreHandler = () => {
         const scoresObject = this.state.baskets;
         scoresObject.forEach(el => delete el.visible);
         const scores = {
             courseName: this.props.course,
+            players: this.props.players,
             playerScores: scoresObject,
             date: new Date(),
             userId: this.props.userId

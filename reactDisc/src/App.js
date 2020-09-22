@@ -9,6 +9,7 @@ import ScoreCardInit from './containers/ScoreCard/ScoreCardInit/ScoreCardInit';
 import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import RoundScores from './containers/Rounds/RoundScores';
+import RoundScoreCard from './containers/Rounds/RoundScoreCard/RoundScoreCard';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/logout" component={Logout} />
             <Route path="/playerselect" component={ScoreCardInit} />
             <Route path="/rounds" component={RoundScores} />
+            <Route path="/:id" component={RoundScoreCard} />
             <Route path="/" exact component={ChooseCourse} />
           </Switch>
         </Layout>

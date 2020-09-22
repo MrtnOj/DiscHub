@@ -23,15 +23,17 @@ class RoundScores extends Component {
     }
 
     roundTileClickedHandler = (id) => {
-
+        this.props.history.push({ pathname: '/' + id });
     }
 
     render () {
         const scoreTiles = this.state.scores.map(el => {
             return <RoundTile 
+                        key={el._id}
+                        id={el._id}
                         courseName={el.courseName}
                         date={el.date.split('T')[0]}
-                        //onClick={() => roundTileClickedHandler(el._id)} 
+                        clicked={this.roundTileClickedHandler}
                         /> 
         });
         return (

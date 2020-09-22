@@ -7,6 +7,10 @@ const scoreSchema = new Schema({
         type: String,
         required: true
     },
+    players: {
+        type: Array,
+        required: true
+    },
     playerScores: {
         type: Array,
         required: true
