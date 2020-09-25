@@ -1,0 +1,9 @@
+.WeatherCardWrapper {
+    position: relative;
+    top: 70px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

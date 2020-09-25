@@ -90,8 +90,10 @@ class Auth extends Component {
         event.preventDefault();
         if (!this.state.isSignIn) {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.controls.name.value);
+            
         } else {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
+            this.props.history.push('/');
         }
     }
 

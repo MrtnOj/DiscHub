@@ -11,6 +11,7 @@ const persistConfig = {
 const initialState = {
     playerInputs: [],
     courseName: '',
+    course: {},
     token: null,
     userId: null,
     error: null,
@@ -24,6 +25,8 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, { courseName: action.courseName, playerInputs: action.playerInputs });
         case actionTypes.COURSE_SELECTED:
             return updateObject(state, { courseName: action.courseName });
+        case actionTypes.COURSE_CLICKED:
+            return updateObject(state, { course: action.course });
         case actionTypes.AUTH_START:
             return updateObject(state, { error: null, loading: true });
         case actionTypes.AUTH_SUCCESS:

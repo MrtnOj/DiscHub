@@ -15,3 +15,10 @@ export const courseSelected = (course) => {
     }
 }
 
+
+export const courseClicked = (course) => {
+    return {
+        type:actionTypes.COURSE_CLICKED,
+        course: course
+    }
+}

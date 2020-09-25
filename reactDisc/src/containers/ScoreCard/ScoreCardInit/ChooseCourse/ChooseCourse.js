@@ -5,7 +5,7 @@ import axios from '../../../../axios-courses';
 import classes from './ChooseCourse.module.css';
 
 import Button from '../../../../components/UI/Button/Button';
-import { courseSelected } from '../../../../store/actions/scoreCardInit';
+import { courseSelected, courseClicked } from '../../../../store/actions/scoreCardInit';
 
 class ChooseCourse extends Component {
     state = {
@@ -35,11 +35,20 @@ class ChooseCourse extends Component {
     };
 
     suggestionSelected = (value) => {
+        axios.get('/courses')
+        .then(response => {
+            const course = response.data.find(course => course.name === value);
+            this.props.courseClicked(course);
+        })
         this.setState({ inputValue: value, suggestions: [] });
     };
 
-    courseSelectRedirect = () => {
+    courseSelectRedirectToScoring = () => {
         this.props.history.push('/playerselect');
+    }
+
+    courseSelectRedirectToWeather = () => {
+        this.props.history.push('/weather');
     }
 
     renderSuggestions () {
@@ -63,11 +72,18 @@ class ChooseCourse extends Component {
             <div className={classes.CourseChoose}>
                 <h3>Search for a course</h3> 
                 <input value={inputValue} onChange={this.onInputChange} type="text"></input>
-                <Button btnType="Success" 
-                    clicked={() => {
-                        this.props.courseSelected(inputValue);
-                        this.courseSelectRedirect()}
-                    }>Cheers m8</Button>
+                <div className={classes.buttonsContainer}>
+                    <Button btnType="Success" 
+                        clicked={() => {
+                            this.props.courseSelected(inputValue);
+                            this.courseSelectRedirectToScoring()}
+                        }>Start a Round</Button>
+                    <Button btnType="Success"
+                        clicked={() => {
+                            this.props.courseSelected(inputValue);
+                            this.courseSelectRedirectToWeather()
+                        }}>Check Weather</Button>
+                </div>
                 {this.renderSuggestions()}
             </div>
         );
@@ -75,13 +91,15 @@ class ChooseCourse extends Component {
 };
 const mapStateToProps = state => {
     return {
-        course: state.courseName
+        courseName: state.courseName,
+        course: state.course
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        courseSelected: (courseName) => dispatch(courseSelected(courseName))
+        courseSelected: (courseName) => dispatch(courseSelected(courseName)),
+        courseClicked: (course) => dispatch(courseClicked(course))
     }
 }
 

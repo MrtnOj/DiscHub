@@ -1,0 +1,32 @@
+.WeatherCard {
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 8vw;
+    min-width: 7rem;
+    background-color: #f7f9fb;
+    border-radius: 6px;
+    padding: 1rem 1rem;
+    margin: 0.1rem 0.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.time {
+    font-size: 1.2rem;
+    color: rgb(190, 8, 8);
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.characteristics {
+    min-height: 2.8rem;
+}
+
