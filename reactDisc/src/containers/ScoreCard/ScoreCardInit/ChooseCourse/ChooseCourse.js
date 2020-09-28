@@ -72,6 +72,9 @@ class ChooseCourse extends Component {
             <div className={classes.CourseChoose}>
                 <h3>Search for a course</h3> 
                 <input value={inputValue} onChange={this.onInputChange} type="text"></input>
+                <div className={classes.SuggestionBoxContainer}>
+                    {this.renderSuggestions()}
+                </div>
                 <div className={classes.buttonsContainer}>
                     <Button btnType="Success" 
                         clicked={() => {
@@ -84,7 +87,6 @@ class ChooseCourse extends Component {
                             this.courseSelectRedirectToWeather()
                         }}>Check Weather</Button>
                 </div>
-                {this.renderSuggestions()}
             </div>
         );
     }

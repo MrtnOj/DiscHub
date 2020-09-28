@@ -28,13 +28,21 @@ input:focus {
     background-color: #ccc;
 }
 
+.SuggestionBoxContainer {
+    position: relative;
+    width: 100%
+
+}
+
 .AutoCompleteBox {
-    width: 60%;
+    width: 100%;
     background-color: white;
     z-index: 10;
     position: absolute;
-    border: 1px solid black;
-    margin: 5px 0;
+    border: 1px solid #ccc;
+    padding:  3px;
+    margin: 2px 0;
+    box-sizing: border-box;
 }
 
 ul {
@@ -44,15 +52,23 @@ ul {
 
 .AutoCompleteBox li {
     box-sizing: border-box;
-    border-bottom: 1px solid #ccc;
-    font-size: 12px;
+    font-size: 16px;
     margin: 0;
     color: black;
     font-weight: normal;
     cursor: pointer;
-    padding: 3px;
+    padding: 5px 3px;
 }
 
 .AutoCompleteBox li:hover {
     background-color: rgba(13, 61, 33, 0.2)
+}
+
+@media(min-width: 500px) {
+    .CourseChoose {
+        width: 50%;
+    }
+    .AutoCompleteBox li {
+        font-size: 20px
+    }
 }
