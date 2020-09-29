@@ -20,7 +20,7 @@
 .Keyboard div {
     margin: 3px;
     border-radius: 3px;
-    background-color: lightblue;
+    background-color: #C6DABF;
     display: flex;
     justify-content: center;
     align-items: center;

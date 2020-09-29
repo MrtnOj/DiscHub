@@ -9,17 +9,19 @@
 }
 
 .personScoringActive {
-  border-width: 0 3px 0 3px;
-  border-color: pink;
-  border-style: solid;
+  /* color: #114B5F; */
 }
 
 .scoreInput {
-    border: 2px solid lightblue;
     height: 30px;
     width: 30px;
     margin-right: 20px;
 }
+
+.scoreInputActive {
+    background-color: #F3E9D2;
+    border: 2px solid #114B5F;
+}  
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

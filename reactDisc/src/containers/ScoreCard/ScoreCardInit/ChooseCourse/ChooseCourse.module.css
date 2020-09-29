@@ -40,13 +40,15 @@ input:focus {
     z-index: 10;
     position: absolute;
     border: 1px solid #ccc;
-    padding:  3px;
+    padding: 0;
     margin: 2px 0;
     box-sizing: border-box;
+    text-align: left;
 }
 
 ul {
     padding: 0;
+    margin: 0;
     list-style: none;
 }
 
@@ -61,7 +63,8 @@ ul {
 }
 
 .AutoCompleteBox li:hover {
-    background-color: rgba(13, 61, 33, 0.2)
+    background-color: #99e6c8;
+    color: white;
 }
 
 @media(min-width: 500px) {

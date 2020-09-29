@@ -7,7 +7,9 @@ class RoundScoreCard extends Component {
     state = {
         playerScores: [],
         players: [],
-        pars: []
+        pars: [],
+        courseName: '',
+        date: ''
     }
 
     componentDidMount () {
@@ -16,8 +18,10 @@ class RoundScoreCard extends Component {
                 console.log(response.data);
                 const playerScores = response.data.scoreCard.playerScores;
                 const players = response.data.scoreCard.players;
+                const courseName = response.data.scoreCard.courseName;
+                const date = response.data.scoreCard.date.split('T');
                 const pars = playerScores.map(hole => hole.par);
-                this.setState({ playerScores: playerScores, players: players, pars: pars });
+                this.setState({ playerScores: playerScores, players: players, pars: pars, courseName: courseName, date: date[0] });
             })
     }
 
@@ -110,6 +114,10 @@ class RoundScoreCard extends Component {
     render () {
         return (
             <div className={classes.TableContainer}>
+                <div className={classes.ScoreCardHeader}>
+                    <h3>{this.state.courseName}</h3>
+                    <h4>{this.state.date}</h4>
+                </div>
                 <table>
                     {this.createTable()}
                 </table>

@@ -1,21 +1,21 @@
 .holeCardButton {
-    width: 22px;
-    height: 22px;
-    background-color: #d0fdfa;
-    border: 2px solid #034d70;
+    width: 24px;
+    height: 24px;
+    background-color: #C6DABF;
     border-radius: 50%;
     text-align: center;
     margin: 2px;
     cursor: pointer;
+    box-shadow: 2px 2px 1px #F3E9D2;
 }
 
 .activeButton {
     color: white;
-    background-color: #034d70;
+    background-color: #1A936F;
 }
 
 .holeCardButton:hover {
-    background-color: #034d70;
+    background-color: #1A936F;
     color: white;
 }
 

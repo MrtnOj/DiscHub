@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './HoleScoreCard.module.css';
 import PersonScore from './PersonScoring/PersonScoring';
 
-const holeScoreCard = (props) => (
+const HoleScoreCard = (props) => (
     <div className={classes.scoreCard} style={{ display: props.active ? 'block' : 'none' }}>
         <div className={classes.cardTitle}>
             <h3>Hole {props.holeNumber}    --  </h3>
@@ -24,4 +24,4 @@ const holeScoreCard = (props) => (
     </div>
 );
 
-export default holeScoreCard;
+export default HoleScoreCard;

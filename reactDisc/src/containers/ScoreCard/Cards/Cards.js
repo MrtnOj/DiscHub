@@ -7,6 +7,7 @@ import HoleCardButtons from '../../../components/HoleCardButtons/HoleCardButtons
 import HoleScoreCard from '../../../components/HoleScoreCards/HoleScoreCard/HoleScoreCard';
 import NumericKeyboard from '../../../components/UI/NumericKeyboard/NumericKeyboard';
 import classes from './Cards.module.css';
+import Button from '../../../components/UI/Button/Button';
 
 class Card extends Component {
     state = {
@@ -143,7 +144,7 @@ class Card extends Component {
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.state.baskets} />
                 <div className={classes.Cards}>
                     {scoringCards}
-                    <button onClick={this.submitScoreHandler}>Submit scores!</button>
+                    <Button btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
                 </div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
             </Auxiliary>
