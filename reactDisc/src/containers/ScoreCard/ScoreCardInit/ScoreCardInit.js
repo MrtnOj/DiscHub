@@ -77,14 +77,14 @@ class ScoreCardInit extends Component {
                     <Button btnType="Danger" clicked={this.cancelAddPlayer}>CANCEL</Button>
                 </Modal>
                 <div className={classes.InitBox}>
-                    <h2>{this.props.course}</h2>
+                    <h2>{this.props.course.name}</h2>
                     {playersOnInitCard}
                     <Button clicked={this.addPlayerBtnClicked}
                         btnType="Success">
                         +Add
                     </Button>
                     <Button clicked={() => {
-                        this.props.startRoundClicked(this.props.course, this.state.players);
+                        this.props.startRoundClicked(this.props.course.name, this.state.players);
                         this.onSubmitRedirect()}}
                         btnType="Success">
                         START
@@ -97,7 +97,7 @@ class ScoreCardInit extends Component {
 
 const mapStateToProps = state => {
     return {
-        course: state.courseName,
+        course: state.course,
         players: state.playerInputs,
         userName: state.userName,
         userId: state.userId

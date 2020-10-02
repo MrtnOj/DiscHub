@@ -6,6 +6,8 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/auth';
+import formValidityCheck from '../../util/formValidityCheck';
+import _ from 'lodash';
 
 class Auth extends Component {
     state = {
@@ -40,38 +42,7 @@ class Auth extends Component {
             },
         },
         isSignIn: true
-    };
-
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-        
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
-    };
+    }
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = {
@@ -79,7 +50,7 @@ class Auth extends Component {
             [controlName]: {
                 ...this.state.controls[controlName],
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                valid: formValidityCheck(event.target.value, this.state.controls[controlName].validation),
                 touched: true
             }
         };
@@ -90,6 +61,16 @@ class Auth extends Component {
         event.preventDefault();
         if (!this.state.isSignIn) {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.controls.name.value);
+            let newFormValues = _.cloneDeep(this.state.controls);
+            // for (const field in newFormValues) {
+            //     for (const key in newFormValues[field]) {
+            //         if (key === 'value') {
+            //             newFormValues[field][key] = '';
+            //         }
+            //     };
+            // }
+            this.setState({ controls: newFormValues });
+            this.props.history.push('/');
             
         } else {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
@@ -149,16 +130,16 @@ class Auth extends Component {
             form = <Spinner />
         }
 
-        let errorMessage = null;
-        if (this.props.error) {
-            errorMessage = (
-                <p>{this.props.error}</p>
-            );
-        }
+        // let errorMessage = null;
+        // if (this.props.error) {
+        //     errorMessage = (
+        //         <p>{this.props.error}</p>
+        //     );
+        // }
 
         return (
             <div className={classes.Auth}>
-                {errorMessage}
+                {/* {errorMessage} */}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">Submit</Button>

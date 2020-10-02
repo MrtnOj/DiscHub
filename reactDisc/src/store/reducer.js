@@ -10,7 +10,7 @@ const persistConfig = {
 
 const initialState = {
     playerInputs: [],
-    courseName: '',
+    baskets: [{}],
     course: {},
     token: null,
     userId: null,
@@ -23,10 +23,10 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.START_ROUND_CLICKED:
             return updateObject(state, { courseName: action.courseName, playerInputs: action.playerInputs });
-        case actionTypes.COURSE_SELECTED:
-            return updateObject(state, { courseName: action.courseName });
         case actionTypes.COURSE_CLICKED:
             return updateObject(state, { course: action.course });
+        case actionTypes.COURSE_BASKETS_SET:
+            return updateObject(state, { baskets: action.baskets });
         case actionTypes.AUTH_START:
             return updateObject(state, { error: null, loading: true });
         case actionTypes.AUTH_SUCCESS:

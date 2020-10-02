@@ -1,6 +1,7 @@
 .PlayerBlock {
     display: flex;
     flex-direction: row;
+    justify-items: space-between;
     justify-content: space-between;
     border-top: 1px solid lightgray;
 }
@@ -8,4 +9,17 @@
 h4 {
     padding: 10px;
     margin: 10px;
+}
+
+.Button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+    color: red;
 }

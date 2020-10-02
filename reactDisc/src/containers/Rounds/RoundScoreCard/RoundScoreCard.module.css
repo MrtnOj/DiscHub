@@ -10,6 +10,9 @@
     box-sizing: border-box;
 }
 
+.ScoreCardHeader {
+}
+
 table {
     border: 1px solid #a3987f;
     position: relative;

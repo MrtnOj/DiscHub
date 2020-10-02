@@ -5,7 +5,7 @@ import axios from '../../../../axios-courses';
 import classes from './ChooseCourse.module.css';
 
 import Button from '../../../../components/UI/Button/Button';
-import { courseSelected, courseClicked } from '../../../../store/actions/scoreCardInit';
+import { courseClicked } from '../../../../store/actions/scoreCardInit';
 
 class ChooseCourse extends Component {
     state = {
@@ -78,12 +78,10 @@ class ChooseCourse extends Component {
                 <div className={classes.buttonsContainer}>
                     <Button btnType="Success" 
                         clicked={() => {
-                            this.props.courseSelected(inputValue);
                             this.courseSelectRedirectToScoring()}
                         }>Start a Round</Button>
                     <Button btnType="Success"
                         clicked={() => {
-                            this.props.courseSelected(inputValue);
                             this.courseSelectRedirectToWeather()
                         }}>Check Weather</Button>
                 </div>
@@ -93,14 +91,13 @@ class ChooseCourse extends Component {
 };
 const mapStateToProps = state => {
     return {
-        courseName: state.courseName,
-        course: state.course
+        course: state.course,
+        baskets: state.baskets
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        courseSelected: (courseName) => dispatch(courseSelected(courseName)),
         courseClicked: (course) => dispatch(courseClicked(course))
     }
 }

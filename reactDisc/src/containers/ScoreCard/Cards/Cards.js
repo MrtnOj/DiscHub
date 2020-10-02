@@ -8,43 +8,44 @@ import HoleScoreCard from '../../../components/HoleScoreCards/HoleScoreCard/Hole
 import NumericKeyboard from '../../../components/UI/NumericKeyboard/NumericKeyboard';
 import classes from './Cards.module.css';
 import Button from '../../../components/UI/Button/Button';
+import { courseBasketsSet } from '../../../store/actions/scoring';
 
 class Card extends Component {
     state = {
-        courseName: '',
-        baskets: [],
-        players: [],
         activePlayer: '',
+        scoreCardValid: true
     };
 
     componentDidMount () {
-        if (this.state.courseName === '') {
-            axios.get('/courses')
-                .then(response => {
-                    const courseData = response.data.find(course => course.name === this.props.course);
-                    let holes = [];
-                    courseData.Pars.forEach((el, index) => {
-                        if (index ===0) {
-                            holes.push({
-                                hole: index + 1,
-                                par: el,
-                                visible: true
-                            })
-                            } else {
-                            holes.push({
-                                hole: index + 1,
-                                par: el,
-                                visible: false
-                            });
-                        }
-                    });
-                    this.setState({ baskets: holes, courseName: this.props.course, players: this.props.players, activePlayer: this.props.players[0].id });
+        axios.get('/courses')
+            .then(response => {
+                const courseData = response.data.find(course => course.name === this.props.course.name);
+                let holes = [];
+                courseData.Pars.forEach((el, index) => {
+                    if (index ===0) {
+                        holes.push({
+                            hole: index + 1,
+                            par: el,
+                            visible: true
+                        })
+                        } else {
+                        holes.push({
+                            hole: index + 1,
+                            par: el,
+                            visible: false
+                        });
+                    }
                 });
-        }
+                this.setState({ activePlayer: this.props.players[0].id });
+                this.props.courseBasketsSet(holes);
+                // if (this.props.baskets.length <= 1) {
+                //     this.props.courseBasketsSet(holes)
+                // }
+            });
     };
 
     cardButtonHandler = (holeNr) => {
-        const newVisible = this.state.baskets.map(el => {
+        const newVisible = this.props.baskets.map(el => {
             if (el.hole === holeNr) {
                 const updatedElement = {
                     ...el,
@@ -59,7 +60,8 @@ class Card extends Component {
                 return updatedElement;
             }
         });
-        this.setState({baskets: newVisible, activePlayer: this.state.players[0].id });
+        this.setState({ activePlayer: this.props.players[0].id });
+        this.props.courseBasketsSet(newVisible);
     };
 
     activePlayerHandler = (id) => {
@@ -67,24 +69,25 @@ class Card extends Component {
     }
 
     keyboardNrButtonHandler = (btnValue) => {
-        const scoringPlayer = this.state.players.find(player => player.id === this.state.activePlayer);
-        let nextPlayer = this.state.players[this.state.players.indexOf(scoringPlayer)+1];
-        if (this.state.players.length-1 === this.state.players.indexOf(scoringPlayer)) {
+        const scoringPlayer = this.props.players.find(player => player.id === this.state.activePlayer);
+        let nextPlayer = this.props.players[this.props.players.indexOf(scoringPlayer)+1];
+        if (this.props.players.length-1 === this.props.players.indexOf(scoringPlayer)) {
             nextPlayer = scoringPlayer;
         }
-        const newBaskets = this.state.baskets.map(basket => {
+        const newBaskets = this.props.baskets.map(basket => {
             if (basket.visible) {
                 basket[scoringPlayer.name] = btnValue
             }
             return basket;
         });
-        this.setState({ baskets: newBaskets, activePlayer: nextPlayer.id });
+        this.setState({ activePlayer: nextPlayer.id });
+        this.props.courseBasketsSet(newBaskets);
     }
 
     keyBoardArrowHandler = (arrowDirection) => {
         //arrowDirection = true for next card and false for previous card
-        const activeCardIndex = this.state.baskets.indexOf(this.state.baskets.find(el => el.visible));
-        const newActive = this.state.baskets.map((el, index) => {
+        const activeCardIndex = this.props.baskets.indexOf(this.props.baskets.find(el => el.visible));
+        const newActive = this.props.baskets.map((el, index) => {
             if (arrowDirection && index === activeCardIndex+1) {
                 const updatedElement = {
                     ...el,
@@ -97,7 +100,7 @@ class Card extends Component {
                     visible: true
                 }
                 return updatedElement;
-            } else if ((!arrowDirection && activeCardIndex === 0) || (arrowDirection && activeCardIndex === this.state.baskets.length -1)) {
+            } else if ((!arrowDirection && activeCardIndex === 0) || (arrowDirection && activeCardIndex === this.props.baskets.length -1)) {
                 return el;
             } else {
                 const updatedElement = {
@@ -107,14 +110,33 @@ class Card extends Component {
                 return updatedElement;
             }
         });
-        this.setState({ baskets: newActive, activePlayer: this.props.players[0].id });
+        this.setState({ activePlayer: this.props.players[0].id });
+        this.props.courseBasketsSet(newActive);
+    }
+
+    scoreCardValidityChecker = () => {
+        
+        const playerNames = this.props.players.map(player => {
+            return player.name;
+        });
+        this.props.baskets.forEach(basket => {
+            for (const name of playerNames) {
+                for (const key in basket) {
+                    if (key === name && basket[key] !== 0) {
+                        console.log(key)
+                    }
+                }
+            }
+        })    
     }
 
     submitScoreHandler = () => {
-        const scoresObject = this.state.baskets;
+        this.scoreCardValidityChecker();
+        //console.log(this.state.scoreCardValid);
+        const scoresObject = this.props.baskets;
         scoresObject.forEach(el => delete el.visible);
         const scores = {
-            courseName: this.props.course,
+            courseName: this.props.course.name,
             players: this.props.players,
             playerScores: scoresObject,
             date: new Date(),
@@ -127,8 +149,7 @@ class Card extends Component {
     };
 
     render () {
-
-        const scoringCards = this.state.baskets.map(el => (
+        const scoringCards = this.props.baskets.map(el => (
             <HoleScoreCard key={el.hole}
             numberPressed={this.changeInputOnNrPress}
             activePlayerHandler={this.activePlayerHandler}
@@ -141,7 +162,7 @@ class Card extends Component {
 
         return (
             <Auxiliary>
-                <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.state.baskets} />
+                <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.baskets} />
                 <div className={classes.Cards}>
                     {scoringCards}
                     <Button btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
@@ -154,10 +175,17 @@ class Card extends Component {
 
 const mapStateToProps = state => {
     return {
-        course: state.courseName,
+        course: state.course,
         players: state.playerInputs,
-        userId: state.userId
+        userId: state.userId,
+        baskets: state.baskets
     };
 }
 
-export default connect(mapStateToProps)(Card);
+const mapDispatchToProps = dispatch => {
+    return {
+        courseBasketsSet: (baskets) => dispatch(courseBasketsSet(baskets))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

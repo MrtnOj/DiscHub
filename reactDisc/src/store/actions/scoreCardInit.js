@@ -8,17 +8,10 @@ export const startRoundClicked = (course, players) => {
     }
 }
 
-export const courseSelected = (course) => {
-    return {
-        type: actionTypes.COURSE_SELECTED,
-        courseName: course
-    }
-}
-
-
 export const courseClicked = (course) => {
     return {
-        type:actionTypes.COURSE_CLICKED,
-        course: course
+        type: actionTypes.COURSE_CLICKED,
+        course: course,
+        baskets: [{}]
     }
 }

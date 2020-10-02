@@ -1,9 +1,42 @@
 .WeatherCardWrapper {
     position: relative;
-    top: 70px;
+    top: 50px;
     width: 90%;
+    height: 30vh;
     margin: auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.WeatherCards {
+    position: relative;
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ButtonsContainer {
+    display: flex;
     justify-content: center;
+}
+
+.Button {
+    background-color: #114B5F;
+    border: none;
+    border-radius: 5px;
+    min-width: 40%;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+@media (min-width: 800px) {
+    .WeatherCards {
+        flex-direction: row;
+    }
 }
