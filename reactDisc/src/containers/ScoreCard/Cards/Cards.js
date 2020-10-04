@@ -13,7 +13,8 @@ import { courseBasketsSet } from '../../../store/actions/scoring';
 class Card extends Component {
     state = {
         activePlayer: '',
-        scoreCardValid: true
+        scoreCardValid: false,
+        inValidCardMessage: ''
     };
 
     componentDidMount () {
@@ -82,6 +83,7 @@ class Card extends Component {
         });
         this.setState({ activePlayer: nextPlayer.id });
         this.props.courseBasketsSet(newBaskets);
+        this.scoreCardValidityChecker();
     }
 
     keyBoardArrowHandler = (arrowDirection) => {
@@ -115,38 +117,53 @@ class Card extends Component {
     }
 
     scoreCardValidityChecker = () => {
-        
+        this.setState({ scoreCardValid: true})
         const playerNames = this.props.players.map(player => {
             return player.name;
         });
         this.props.baskets.forEach(basket => {
+            let scoreInputsFilled = true;
+            let validScores = true;
             for (const name of playerNames) {
+                const isValid = Object.keys(basket).includes(name);
+                scoreInputsFilled = !isValid ? false : scoreInputsFilled;
                 for (const key in basket) {
-                    if (key === name && basket[key] !== 0) {
-                        console.log(key)
+                    if (key === name && basket[key] === 0) {
+                        validScores = false;
                     }
                 }
             }
-        })    
+            if (!scoreInputsFilled) {
+                this.setState({ inValidCardMessage: `Missing score input on hole ${basket.hole} `, scoreCardValid: false});
+                return
+            }
+            if (!validScores) {
+                this.setState({ inValidCardMessage: `Invalid score 0 on hole ${basket.hole} `, scoreCardValid: false });
+                return
+            }
+        })   
     }
 
     submitScoreHandler = () => {
-        this.scoreCardValidityChecker();
-        //console.log(this.state.scoreCardValid);
-        const scoresObject = this.props.baskets;
-        scoresObject.forEach(el => delete el.visible);
-        const scores = {
-            courseName: this.props.course.name,
-            players: this.props.players,
-            playerScores: scoresObject,
-            date: new Date(),
-            userId: this.props.userId
-        };
-        axios.post('/scores', scores)
-            .then(response => {
-                console.log(response);
-            });
-    };
+        if (this.scoreCardValid) {
+            const scoresObject = this.props.baskets;
+            scoresObject.forEach(el => delete el.visible);
+            const scores = {
+                courseName: this.props.course.name,
+                players: this.props.players,
+                playerScores: scoresObject,
+                date: new Date(),
+                userId: this.props.userId
+            };
+            axios.post('/scores', scores)
+                .then(response => {
+                    console.log(response);
+                });
+        } else {
+            console.log(this.state.inValidCardMessage)
+        }
+    }
+        
 
     render () {
         const scoringCards = this.props.baskets.map(el => (
@@ -165,7 +182,7 @@ class Card extends Component {
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.baskets} />
                 <div className={classes.Cards}>
                     {scoringCards}
-                    <Button btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
+                    <Button disabled={!this.state.scoreCardValid} btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
                 </div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
             </Auxiliary>
