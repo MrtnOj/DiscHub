@@ -14,6 +14,7 @@ class Card extends Component {
     state = {
         activePlayer: '',
         scoreCardValid: false,
+        validityErrorDisplay: false,
         inValidCardMessage: ''
     };
 
@@ -145,7 +146,7 @@ class Card extends Component {
     }
 
     submitScoreHandler = () => {
-        if (this.scoreCardValid) {
+        if (this.state.scoreCardValid) {
             const scoresObject = this.props.baskets;
             scoresObject.forEach(el => delete el.visible);
             const scores = {
@@ -160,7 +161,7 @@ class Card extends Component {
                     console.log(response);
                 });
         } else {
-            console.log(this.state.inValidCardMessage)
+            this.setState({ validityErrorDisplay: true });
         }
     }
         
@@ -182,6 +183,7 @@ class Card extends Component {
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.baskets} />
                 <div className={classes.Cards}>
                     {scoringCards}
+                    {/* {this.state.validityErrorDisplay ? <p>{this.state.inValidCardMessage}</p> : null } */}
                     <Button disabled={!this.state.scoreCardValid} btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
                 </div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
