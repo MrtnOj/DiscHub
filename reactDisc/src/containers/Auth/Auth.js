@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -61,20 +62,11 @@ class Auth extends Component {
         event.preventDefault();
         if (!this.state.isSignIn) {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.controls.name.value);
-            let newFormValues = _.cloneDeep(this.state.controls);
-            // for (const field in newFormValues) {
-            //     for (const key in newFormValues[field]) {
-            //         if (key === 'value') {
-            //             newFormValues[field][key] = '';
-            //         }
-            //     };
-            // }
-            this.setState({ controls: newFormValues });
-            this.props.history.push('/');
+            // let newFormValues = _.cloneDeep(this.state.controls);
+            // this.setState({ controls: newFormValues });
             
         } else {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
-            this.props.history.push('/');
         }
     }
 
@@ -130,16 +122,28 @@ class Auth extends Component {
             form = <Spinner />
         }
 
-        // let errorMessage = null;
-        // if (this.props.error) {
-        //     errorMessage = (
-        //         <p>{this.props.error}</p>
-        //     );
-        // }
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = (
+                <p>{this.props.error}</p>
+            );
+        }
+
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to='/'/>
+        }
+
+        let signUpSuccessfulMessage = null;
+        if (!this.props.isAuthenticated && this.props.signUpMessage) {
+            signUpSuccessfulMessage = <p>{this.props.signUpMessage}</p>;
+        }
 
         return (
             <div className={classes.Auth}>
-                {/* {errorMessage} */}
+                {authRedirect}
+                {errorMessage}
+                {signUpSuccessfulMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">Submit</Button>
@@ -155,7 +159,9 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.loading,
-        error: state.error
+        error: state.error,
+        isAuthenticated: state.token !== null,
+        signUpMessage: state.signUpMessage
     }
 }
 

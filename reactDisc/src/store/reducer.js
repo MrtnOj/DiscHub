@@ -16,7 +16,8 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
-    userName: null
+    userName: null,
+    signUpMessage: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,12 +29,13 @@ const reducer = (state = initialState, action) => {
         case actionTypes.COURSE_BASKETS_SET:
             return updateObject(state, { baskets: action.baskets });
         case actionTypes.AUTH_START:
-            return updateObject(state, { error: null, loading: true });
+            return updateObject(state, { error: null, loading: true, signUpMessage: null });
         case actionTypes.AUTH_SUCCESS:
             return updateObject(state, { 
                 token: action.token,
                 userId: action.userId,
                 userName: action.userName,
+                signUpMessage: action.signUpMessage,
                 error: null,
                 loading: false
             });

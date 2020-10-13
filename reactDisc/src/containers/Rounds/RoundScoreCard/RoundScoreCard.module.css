@@ -8,29 +8,47 @@
     border: 1px solid #eee;
     padding: 10px;
     box-sizing: border-box;
-}
-
-.ScoreCardHeader {
+    font-size: 0.9em;
 }
 
 table {
-    border: 1px solid #a3987f;
-    position: relative;
-    margin: 10px, auto;
     border-collapse: collapse;
+}
+
+.TableContainer table>:nth-child(2) {
+    background-color: #eee4d0;
+}
+
+.TableContainer tr>td:first-child {
+    background-color: #eee4d0;
+    font-weight: bold;
+    min-width: 60px;
+}
+
+.MobileTableContainer {
+    
+}
+
+.MobileTableUpperHalf {
+    margin: 5px 0;
+}
+
+.MobileTableLowerHalf {
+    margin: 5px 0;
+    
+}
+
+.MobileTableLowerHalf tr>td:last-child {
+    font-weight: bold;
+    background-color: #eee4d0;
 }
 
 th, td {
     border: 1px solid #a3987f;
     min-width: 20px;
+    padding: 3px 2px ;
 }
 
-table>tr>:nth-child(1) {
-    border: 1px solid #a3987f;
-    min-width: 150px;
-    text-align: center;
-   }
-
-  th, td {
-    padding: 2px 5;
-  }
+.TableContainer th {
+    background-color: #C6DABF;
+}

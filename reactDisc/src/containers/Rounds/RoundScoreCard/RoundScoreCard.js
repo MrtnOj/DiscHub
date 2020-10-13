@@ -76,14 +76,16 @@ class RoundScoreCard extends Component {
 
     createTable = () => {
         const scores = this.convertRoundData();
+        console.log(scores);
         let table = [];
         let headerCells = [];
         //create headers
         for (let holeNr in scores[0]) {
             headerCells.push(<th>{holeNr}</th>);
         }
-        headerCells.unshift(headerCells.pop());
-        headerCells.push(<th>{'Score'}</th>)
+        headerCells.pop();
+        headerCells.unshift(<th></th>);
+        headerCells.push(<th>{'+-'}</th>)
         table.push(<tr>{headerCells}</tr>);
 
         // Pars header
@@ -92,6 +94,7 @@ class RoundScoreCard extends Component {
             parCells.push(<td>{par}</td>)
         }
         parCells.unshift(<td>{'Par'}</td>);
+        parCells.push(<td>0</td>);
         table.push(<tr>{parCells}</tr>);
 
         //create table contents
@@ -108,7 +111,73 @@ class RoundScoreCard extends Component {
             cells.push(<td>{totalScore}</td>);
             table.push(<tr>{cells}</tr>)
         }
-        return table;
+        return <table>{table}</table>;
+    }
+
+    createMobileTable = () => {
+        const scores = this.convertRoundData();
+        let tableUpper = [];
+        let tableLower = [];
+        let headerCellsUpper = [];
+        let headerCellsLower = [];
+        //create headers
+        for (let holeNr in scores[0]) {
+            if (holeNr <= 9) {
+                headerCellsUpper.push(<th>{holeNr}</th>)
+            } else {
+                headerCellsLower.push(<th>{holeNr}</th>)
+            }
+        }
+        headerCellsUpper.unshift(<th></th>);
+        headerCellsLower.pop();
+        headerCellsLower.unshift(headerCellsUpper[0]);
+        headerCellsLower.push(<th>{'+-'}</th>)
+        tableUpper.push(<tr>{headerCellsUpper}</tr>);
+        tableLower.push(<tr>{headerCellsLower}</tr>);
+
+        // Pars header
+        let parCellsUpper = [];
+        let parCellsLower = [];
+        for (let i = 0; i < this.state.pars.length; i++) {
+            if (i < headerCellsUpper.length -1) {
+                parCellsUpper.push(<td>{this.state.pars[i]}</td>)
+            } else {
+                parCellsLower.push(<td>{this.state.pars[i]}</td>)
+            }
+        }
+        parCellsUpper.unshift(<td>{'Par'}</td>);
+        parCellsLower.unshift(<td>{'Par'}</td>);
+        parCellsLower.push(<td>0</td>);
+        tableUpper.push(<tr>{parCellsUpper}</tr>);
+        tableLower.push(<tr>{parCellsLower}</tr>);
+
+        //create table contents
+        for (let players of scores) {
+            let cellsUpper = [];
+            let cellsLower = [];
+            let totalScore = 0;
+            for (let key in players) {
+                if (key <= 9) {
+                    cellsUpper.push(this.tableCellColorAssign(players[key], this.state.pars[key-1]));
+                } else {
+                    cellsLower.push(this.tableCellColorAssign(players[key], this.state.pars[key-1]));
+                }
+                if (!isNaN(players[key])) {
+                    totalScore = totalScore + players[key] - this.state.pars[key-1];
+                }
+
+            }
+            cellsUpper.unshift(cellsLower.pop());
+            cellsLower.unshift(cellsUpper[0]);
+            cellsLower.push(<td>{totalScore}</td>);
+            tableUpper.push(<tr>{cellsUpper}</tr>);
+            tableLower.push(<tr>{cellsLower}</tr>)
+        }
+        let mobileTable = (<div className={classes.MobileTableContainer}>
+                <table className={classes.MobileTableUpperHalf}>{tableUpper}</table>
+                <table className={classes.MobileTableLowerHalf}>{tableLower}</table>
+            </div>);
+        return mobileTable;
     }
 
     render () {
@@ -118,9 +187,7 @@ class RoundScoreCard extends Component {
                     <h3>{this.state.courseName}</h3>
                     <h4>{this.state.date}</h4>
                 </div>
-                <table>
-                    {this.createTable()}
-                </table>
+                {this.createMobileTable()}
             </div>
         );
     }
