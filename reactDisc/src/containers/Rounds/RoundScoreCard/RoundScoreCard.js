@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 
+import tableCellColorAssign from '../../../util/tableCellColorAssign';
 import classes from './RoundScoreCard.module.css';
 import axios from '../../../axios-courses';
 
@@ -9,19 +12,24 @@ class RoundScoreCard extends Component {
         players: [],
         pars: [],
         courseName: '',
-        date: ''
+        date: '',
+        parTotal: 0
     }
 
     componentDidMount () {
-        axios.get('/scores/' + this.props.match.params.id)
+        axios.get('/scores/' + this.props.match.params.id, { headers: {
+            Authorization: 'Bearer ' + this.props.token
+        }
+    })
             .then(response => {
                 console.log(response.data);
                 const playerScores = response.data.scoreCard.playerScores;
                 const players = response.data.scoreCard.players;
                 const courseName = response.data.scoreCard.courseName;
                 const date = response.data.scoreCard.date.split('T');
-                const pars = playerScores.map(hole => hole.par);
-                this.setState({ playerScores: playerScores, players: players, pars: pars, courseName: courseName, date: date[0] });
+                const pars = playerScores.map(hole => parseInt(hole.par));
+                const parTotal = pars.reduce(( acc, cur ) => acc + cur);
+                this.setState({ playerScores: playerScores, players: players, pars: pars, courseName: courseName, date: date[0], parTotal: parTotal });
             })
     }
 
@@ -30,48 +38,25 @@ class RoundScoreCard extends Component {
         const playerNames = this.state.players.map(player => player.name);
         let playersTableArray = [];
         playerNames.forEach(name => {
-            let playerObject = {name: name};
+            let playerObject = {};
+            let playerTotalScore = 0;
             for (let hole of this.state.playerScores) {
                 for (let key in hole) {
                     if (key === name) {
                         const playerHoleScore = {[hole.hole]: hole[key]}
+                        playerTotalScore = playerTotalScore + hole[key];
                         Object.assign(playerObject, playerHoleScore);
                     }
                 }
             }
+            // console.log(playerTotalScore);
+            const scoreRelativeToPar = playerTotalScore - this.state.parTotal;
+            // console.log(scoreRelativeToPar);
+            Object.assign(playerObject, { '+-': scoreRelativeToPar });
+            Object.assign(playerObject, { name: name });
             playersTableArray.push(playerObject);
         });
         return playersTableArray;
-    }
-
-    tableCellColorAssign = (playerScore, parScore) => {
-        let color;
-        switch (playerScore - parScore) {
-            case 1:
-                color = '#ebc7c5';
-                break;
-            case 2:
-                color = '#d18d8a';
-                break;
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-                color = '#b8a6de'
-                break;
-            case -1:
-                color = 'lightgreen';
-                break;
-            case -2:
-                color = 'lightblue';
-                break;
-            default:
-                color = 'white';
-        }
-        let tableScoreCell = <td style={{ backgroundColor: color }}>{playerScore}</td>;
-        return tableScoreCell
     }
 
     createTable = () => {
@@ -85,7 +70,6 @@ class RoundScoreCard extends Component {
         }
         headerCells.pop();
         headerCells.unshift(<th></th>);
-        headerCells.push(<th>{'+-'}</th>)
         table.push(<tr>{headerCells}</tr>);
 
         // Pars header
@@ -100,18 +84,13 @@ class RoundScoreCard extends Component {
         //create table contents
         for (let players of scores) {
             let cells = [];
-            let totalScore = 0;
             for (let key in players) {
-                cells.push(this.tableCellColorAssign(players[key], this.state.pars[key-1]));
-                if (!isNaN(players[key])) {
-                    totalScore = totalScore + players[key] - this.state.pars[key-1];
-                }
+                cells.push(<td style={{ backgroundColor: tableCellColorAssign(players[key], this.state.pars[key-1])}}>{players[key]}</td>);
             }
             cells.unshift(cells.pop());
-            cells.push(<td>{totalScore}</td>);
             table.push(<tr>{cells}</tr>)
         }
-        return <table>{table}</table>;
+        return <table className={classes.ScoreTable}>{table}</table>;
     }
 
     createMobileTable = () => {
@@ -130,8 +109,8 @@ class RoundScoreCard extends Component {
         }
         headerCellsUpper.unshift(<th></th>);
         headerCellsLower.pop();
+        headerCellsLower.pop();
         headerCellsLower.unshift(headerCellsUpper[0]);
-        headerCellsLower.push(<th>{'+-'}</th>)
         tableUpper.push(<tr>{headerCellsUpper}</tr>);
         tableLower.push(<tr>{headerCellsLower}</tr>);
 
@@ -147,7 +126,7 @@ class RoundScoreCard extends Component {
         }
         parCellsUpper.unshift(<td>{'Par'}</td>);
         parCellsLower.unshift(<td>{'Par'}</td>);
-        parCellsLower.push(<td>0</td>);
+        //parCellsLower.push(<td>0</td>); 
         tableUpper.push(<tr>{parCellsUpper}</tr>);
         tableLower.push(<tr>{parCellsLower}</tr>);
 
@@ -155,25 +134,20 @@ class RoundScoreCard extends Component {
         for (let players of scores) {
             let cellsUpper = [];
             let cellsLower = [];
-            let totalScore = 0;
             for (let key in players) {
                 if (key <= 9) {
-                    cellsUpper.push(this.tableCellColorAssign(players[key], this.state.pars[key-1]));
+                    cellsUpper.push(<td style={{ backgroundColor: tableCellColorAssign(players[key], this.state.pars[key-1])}}>{players[key]}</td>);
                 } else {
-                    cellsLower.push(this.tableCellColorAssign(players[key], this.state.pars[key-1]));
+                    cellsLower.push(<td style={{ backgroundColor: tableCellColorAssign(players[key], this.state.pars[key-1])}}>{players[key]}</td>);
                 }
-                if (!isNaN(players[key])) {
-                    totalScore = totalScore + players[key] - this.state.pars[key-1];
-                }
-
             }
             cellsUpper.unshift(cellsLower.pop());
             cellsLower.unshift(cellsUpper[0]);
-            cellsLower.push(<td>{totalScore}</td>);
+            cellsLower.pop();
             tableUpper.push(<tr>{cellsUpper}</tr>);
             tableLower.push(<tr>{cellsLower}</tr>)
         }
-        let mobileTable = (<div className={classes.MobileTableContainer}>
+        let mobileTable = (<div className={classes.MobileTable}>
                 <table className={classes.MobileTableUpperHalf}>{tableUpper}</table>
                 <table className={classes.MobileTableLowerHalf}>{tableLower}</table>
             </div>);
@@ -187,10 +161,22 @@ class RoundScoreCard extends Component {
                     <h3>{this.state.courseName}</h3>
                     <h4>{this.state.date}</h4>
                 </div>
-                {this.createMobileTable()}
+                <MediaQuery minWidth={630}>
+                    {this.createTable()}
+                </MediaQuery>
+                <MediaQuery maxWidth={629}>
+                    {this.createMobileTable()}
+                </MediaQuery>
+
             </div>
         );
     }
 }
 
-export default RoundScoreCard;
+const mapStateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(RoundScoreCard);

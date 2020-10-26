@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import axios from '../../axios-courses';
 import RoundTile from '../../components/SavedRoundComponents/RoundTitleTiles/RoundTile';
@@ -10,20 +11,19 @@ class RoundScores extends Component {
     }
 
     componentDidMount () {
-        axios.get('/scores')
+        axios.get('/scores/users/' + this.props.match.params.user, { headers: {
+            Authorization: 'Bearer ' + this.props.token
+        }
+    })
             .then(response => {
-                let scoresArray = [];
                 const roundScores = response.data;
-                roundScores.forEach(score => {
-                    scoresArray.push(score);
-                });
-                this.setState({ scores: scoresArray })
-                console.log(scoresArray);
+                console.log(roundScores);
+                this.setState({ scores: roundScores });
             });
     }
 
     roundTileClickedHandler = (id) => {
-        this.props.history.push({ pathname: '/' + id });
+        this.props.history.push({ pathname: '/round/' + id });
     }
 
     render () {
@@ -33,9 +33,10 @@ class RoundScores extends Component {
                         id={el._id}
                         courseName={el.courseName}
                         date={el.date.split('T')[0]}
-                        clicked={this.roundTileClickedHandler}
+                        clicked={() => this.roundTileClickedHandler(el._id)}
                         /> 
         });
+
         return (
             <div>
                 {scoreTiles}
@@ -44,4 +45,11 @@ class RoundScores extends Component {
     };
 }
 
-export default RoundScores;
+const mapStateToProps = state => {
+    return {
+        token: state.token,
+        user: state.userId
+    };
+}
+
+export default connect(mapStateToProps)(RoundScores);

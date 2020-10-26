@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { Redirect } from 'react-router-dom';
 
 import Auxiliary from '../../../hoc/Auxiliary';
 import axios from '../../../axios-courses';
@@ -156,9 +157,13 @@ class Card extends Component {
                 date: new Date(),
                 userId: this.props.userId
             };
-            axios.post('/scores', scores)
+            axios.post('/scores', scores, { headers: {
+                Authorization: 'Bearer ' + this.props.token
+            }
+        })
                 .then(response => {
                     console.log(response);
+                    this.props.history.push({ pathname: '/round/' + response.data.result._id });
                 });
         } else {
             this.setState({ validityErrorDisplay: true });
@@ -197,7 +202,8 @@ const mapStateToProps = state => {
         course: state.course,
         players: state.playerInputs,
         userId: state.userId,
-        baskets: state.baskets
+        baskets: state.baskets,
+        token: state.token
     };
 }
 

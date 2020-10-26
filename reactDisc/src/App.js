@@ -22,9 +22,9 @@ function App() {
             <Route path="/auth" component={Auth} />
             <Route path="/logout" component={Logout} />
             <Route path="/playerselect" component={ScoreCardInit} />
-            <Route path="/rounds" component={RoundScores} />
             <Route path="/weather" component={WeatherCards} />
-            <Route path="/:id" component={RoundScoreCard} />
+            <Route path="/rounds/:user" exact component={RoundScores} />
+            <Route path="/round/:id" exact component={RoundScoreCard} />
             <Route path="/" exact component={ChooseCourse} />
           </Switch>
         </Layout>

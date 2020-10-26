@@ -5,10 +5,10 @@ const router = express.Router();
 const isAuth = require('../middleware/is-auth');
 
 
-router.get('/', scoresController.getScores);
+router.get('/users/:userId', isAuth, scoresController.getScores);
 
-router.post('/', scoresController.postScore);
+router.post('/', isAuth, scoresController.postScore);
 
-router.get('/:scoreCardId', scoresController.getScore);
+router.get('/:scoreCardId', isAuth, scoresController.getScore);
 
 module.exports = router;

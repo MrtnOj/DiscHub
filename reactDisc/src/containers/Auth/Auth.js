@@ -8,7 +8,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/auth';
 import formValidityCheck from '../../util/formValidityCheck';
-import _ from 'lodash';
+// import _ from 'lodash';
 
 class Auth extends Component {
     state = {
@@ -42,7 +42,8 @@ class Auth extends Component {
                 touched: false
             },
         },
-        isSignIn: true
+        isSignIn: true,
+	regSuccessMsg: null
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -134,9 +135,10 @@ class Auth extends Component {
             authRedirect = <Redirect to='/'/>
         }
 
-        let signUpSuccessfulMessage = null;
+	    let signUpSuccessfulMessage = null;
         if (!this.props.isAuthenticated && this.props.signUpMessage) {
             signUpSuccessfulMessage = <p>{this.props.signUpMessage}</p>;
+            authRedirect = <Redirect to='/auth'/>
         }
 
         return (

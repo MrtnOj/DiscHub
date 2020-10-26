@@ -20,9 +20,9 @@ const scoreSchema = new Schema({
         required: true
     },
     user: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
-module.exports = mongoose.model('score', scoreSchema);
+module.exports = mongoose.model('Score', scoreSchema);

@@ -1,7 +1,8 @@
 const Score = require('../models/score');
 
 exports.getScores = (req, res, next) => {
-    Score.find({})
+    const userId = req.params.userId;
+    Score.find({ user: userId })
         .then(scores => {
             console.log(scores);
             res.json(scores);
@@ -22,6 +23,7 @@ exports.postScore = (req, res, next) => {
         .then(result => {
             console.log('Score Posted!');
             console.log(result);
+            res.status(200).json({ result })
         })
         .catch(err => {
             console.log(err);
@@ -30,6 +32,7 @@ exports.postScore = (req, res, next) => {
 
 exports.getScore = (req, res, next) => {
     const scoreCardId = req.params.scoreCardId;
+    console.log(scoreCardId);
     Score.findById(scoreCardId)
         .then(scoreCard => {
             if (!scoreCard) {

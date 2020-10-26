@@ -6,27 +6,31 @@
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
     border: 1px solid #eee;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
     font-size: 0.9em;
 }
 
-table {
+.TableContainer table {
     border-collapse: collapse;
 }
 
-.TableContainer table>:nth-child(2) {
-    background-color: #eee4d0;
+.TableContainer table>:first-child {
+    background-color: #C6DABF;
 }
 
 .TableContainer tr>td:first-child {
-    background-color: #eee4d0;
+    color: black;
     font-weight: bold;
-    min-width: 60px;
+    min-width: 90px;
 }
 
-.MobileTableContainer {
-    
+.MobileTable {
+    margin: 20px 5px;
+}
+
+.ScoreTable {
+    margin: 20px 5px;
 }
 
 .MobileTableUpperHalf {
@@ -38,17 +42,20 @@ table {
     
 }
 
-.MobileTableLowerHalf tr>td:last-child {
+.ScoreTable tr>:last-child {
     font-weight: bold;
-    background-color: #eee4d0;
+    border-width: 2px;
+    border-left: solid 1px #92bece;
 }
 
-th, td {
-    border: 1px solid #a3987f;
+.TableContainer table>:nth-child(2) {
+    background-color: #f0e8d6;
+    border-bottom: solid 1px #92bece;
+    font-weight: normal !important;
+}
+
+.TableContainer th, td {
+    border: none;
     min-width: 20px;
-    padding: 3px 2px ;
-}
-
-.TableContainer th {
-    background-color: #C6DABF;
+    padding: 3px 2px;
 }
