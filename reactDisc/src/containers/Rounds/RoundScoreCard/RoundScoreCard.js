@@ -97,6 +97,7 @@ class RoundScoreCard extends Component {
         const scores = this.convertRoundData();
         let tableUpper = [];
         let tableLower = [];
+        let tableFinalScores = [];
         let headerCellsUpper = [];
         let headerCellsLower = [];
         //create headers
@@ -143,13 +144,17 @@ class RoundScoreCard extends Component {
             }
             cellsUpper.unshift(cellsLower.pop());
             cellsLower.unshift(cellsUpper[0]);
-            cellsLower.pop();
+            // let finalScores = [];
+            // finalScores = finalScores.push(cellsLower.pop());
+            tableFinalScores.push(<tr><td>{players.name}</td>{cellsLower.pop()}</tr>);
             tableUpper.push(<tr>{cellsUpper}</tr>);
             tableLower.push(<tr>{cellsLower}</tr>)
         }
+
         let mobileTable = (<div className={classes.MobileTable}>
                 <table className={classes.MobileTableUpperHalf}>{tableUpper}</table>
                 <table className={classes.MobileTableLowerHalf}>{tableLower}</table>
+                <table className={classes.MobileFinalScoreTable}>{tableFinalScores}</table>
             </div>);
         return mobileTable;
     }

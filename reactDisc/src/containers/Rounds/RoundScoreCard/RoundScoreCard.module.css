@@ -59,3 +59,8 @@
     min-width: 20px;
     padding: 3px 2px;
 }
+
+.MobileFinalScoreTable {
+    border: none;
+    background-color: white;
+}
