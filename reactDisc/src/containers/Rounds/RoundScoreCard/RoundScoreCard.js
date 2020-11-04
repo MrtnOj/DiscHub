@@ -49,9 +49,7 @@ class RoundScoreCard extends Component {
                     }
                 }
             }
-            // console.log(playerTotalScore);
             const scoreRelativeToPar = playerTotalScore - this.state.parTotal;
-            // console.log(scoreRelativeToPar);
             Object.assign(playerObject, { '+-': scoreRelativeToPar });
             Object.assign(playerObject, { name: name });
             playersTableArray.push(playerObject);
@@ -61,7 +59,6 @@ class RoundScoreCard extends Component {
 
     createTable = () => {
         const scores = this.convertRoundData();
-        console.log(scores);
         let table = [];
         let headerCells = [];
         //create headers
@@ -78,7 +75,7 @@ class RoundScoreCard extends Component {
             parCells.push(<td>{par}</td>)
         }
         parCells.unshift(<td>{'Par'}</td>);
-        parCells.push(<td>0</td>);
+        parCells.push(<td>{this.state.parTotal}</td>);
         table.push(<tr>{parCells}</tr>);
 
         //create table contents
@@ -127,7 +124,6 @@ class RoundScoreCard extends Component {
         }
         parCellsUpper.unshift(<td>{'Par'}</td>);
         parCellsLower.unshift(<td>{'Par'}</td>);
-        //parCellsLower.push(<td>0</td>); 
         tableUpper.push(<tr>{parCellsUpper}</tr>);
         tableLower.push(<tr>{parCellsLower}</tr>);
 
@@ -144,16 +140,15 @@ class RoundScoreCard extends Component {
             }
             cellsUpper.unshift(cellsLower.pop());
             cellsLower.unshift(cellsUpper[0]);
-            // let finalScores = [];
-            // finalScores = finalScores.push(cellsLower.pop());
             tableFinalScores.push(<tr><td>{players.name}</td>{cellsLower.pop()}</tr>);
             tableUpper.push(<tr>{cellsUpper}</tr>);
             tableLower.push(<tr>{cellsLower}</tr>)
         }
 
-        let mobileTable = (<div className={classes.MobileTable}>
-                <table className={classes.MobileTableUpperHalf}>{tableUpper}</table>
-                <table className={classes.MobileTableLowerHalf}>{tableLower}</table>
+        let mobileTable = (
+            <div className={classes.MobileTable}>
+                <table>{tableUpper}</table>
+                {Object.keys(this.state.pars).length >= 10 ? <table>{tableLower}</table>: null} 
                 <table className={classes.MobileFinalScoreTable}>{tableFinalScores}</table>
             </div>);
         return mobileTable;
@@ -164,7 +159,8 @@ class RoundScoreCard extends Component {
             <div className={classes.TableContainer}>
                 <div className={classes.ScoreCardHeader}>
                     <h3>{this.state.courseName}</h3>
-                    <h4>{this.state.date}</h4>
+                    <br/>
+                    <p>{this.state.date}</p>
                 </div>
                 <MediaQuery minWidth={630}>
                     {this.createTable()}
@@ -172,7 +168,6 @@ class RoundScoreCard extends Component {
                 <MediaQuery maxWidth={629}>
                     {this.createMobileTable()}
                 </MediaQuery>
-
             </div>
         );
     }

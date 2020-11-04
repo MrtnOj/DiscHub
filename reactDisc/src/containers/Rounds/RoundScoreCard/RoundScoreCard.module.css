@@ -4,8 +4,6 @@
     margin: 20px auto;
     width: 95%;
     text-align: center;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
     padding: 5px;
     box-sizing: border-box;
     font-size: 0.9em;
@@ -25,32 +23,23 @@
     min-width: 90px;
 }
 
-.MobileTable {
-    margin: 20px 5px;
+.MobileTable table {
+    margin: 20px auto;
 }
 
 .ScoreTable {
-    margin: 20px 5px;
-}
-
-.MobileTableUpperHalf {
-    margin: 5px 0;
-}
-
-.MobileTableLowerHalf {
-    margin: 5px 0;
-    
+    margin: 20px auto;
 }
 
 .ScoreTable tr>:last-child {
     font-weight: bold;
     border-width: 2px;
     border-left: solid 1px #92bece;
+    text-align: right;
 }
 
 .TableContainer table>:nth-child(2) {
     background-color: #f0e8d6;
-    border-bottom: solid 1px #92bece;
     font-weight: normal !important;
 }
 
@@ -60,7 +49,21 @@
     padding: 3px 2px;
 }
 
-.MobileFinalScoreTable {
+.MobileFinalScoreTable tr>:first-child {
     border: none;
     background-color: white;
+    text-align: left;
+    border-bottom: 1px solid #C6DABF
+}
+
+.MobileFinalScoreTable tr td:last-child {
+    font-weight: bold;
+    border-bottom: 1px solid #C6DABF;
+}
+
+@media (min-width: 630px) {
+    .TableContainer {
+        box-shadow: 0 2px 3px #ccc;
+        border: 1px solid #eee;
+    }
 }
