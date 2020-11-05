@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Modal from '../../../components/UI/Modal/Modal';
+import Input from '../../../components/UI/Input/Input';
 import PlayerBlock from '../../../components/ScoreCardInitComponents/PlayerBlock/PlayerBlock';
 import Auxiliary from '../../../hoc/Auxiliary';
+import formValidityCheck from '../../../util/formValidityCheck';
 import { startRoundClicked } from '../../../store/actions/scoreCardInit';
 
 
@@ -14,7 +16,21 @@ import classes from './ScoreCardInit.module.css';
 class ScoreCardInit extends Component {
     state = {
         courseName: '',
-        playerInputValue: '',
+        nameInputControls: {
+            elementType: 'input',
+            elementConfig: {
+                type: 'name',
+                placeholder: 'Name'
+            },
+            value: '',
+            validation: {
+                required: true,
+                minLength: 2,
+                maxLength: 12
+            },
+            valid: false,
+            touched: false
+        },
         playerCount: 1,
         players: [],
         submitted: false,
@@ -33,10 +49,15 @@ class ScoreCardInit extends Component {
     };
 
     onPlayerSubmit = () => {
-        let newPlayersArray = this.state.players;
-        newPlayersArray.push({ name: this.state.playerInputValue, id: `${this.state.playerInputValue + Math.floor(Math.random()*1000)}`})
-
-        this.setState({ players: newPlayersArray, addingPlayer: false, playerInputValue: '' })
+        if (this.state.nameInputControls.valid) {
+            let newPlayersArray = this.state.players;
+            newPlayersArray.push({ name: this.state.nameInputControls.value, id: `${this.state.nameInputControls.value + Math.floor(Math.random()*1000)}`})
+            const newInputControls = {
+                ...this.state.nameInputControls,
+                value: ''
+            }
+            this.setState({ players: newPlayersArray, addingPlayer: false, nameInputControls: newInputControls })
+        }
     }
 
     cancelAddPlayer = () => {
@@ -51,8 +72,13 @@ class ScoreCardInit extends Component {
     };
 
     onPlayerInputChange = (event) => {
-        let inputV = event.target.value;
-        this.setState({ playerInputValue: inputV })
+        const newInputControls = {
+            ...this.state.nameInputControls,
+            value: event.target.value,
+            valid: formValidityCheck(event.target.value, this.state.nameInputControls.validation),
+            touched: true
+        }
+        this.setState({ nameInputControls: newInputControls })
     }
 
     courseInputChangeHandler = (courseInputValue) => {
@@ -72,7 +98,15 @@ class ScoreCardInit extends Component {
         return (
             <Auxiliary>
                 <Modal show={this.state.addingPlayer}>
-                    <input value={this.state.playerInputValue} onChange={this.onPlayerInputChange}></input>
+                    {/* <input value={this.state.playerInputValue} onChange={this.onPlayerInputChange}></input> */}
+                    <Input 
+                        elementConfig={this.state.nameInputControls.elementConfig}
+                        value={this.state.nameInputControls.value}
+                        invalid={!this.state.nameInputControls.valid}
+                        shouldValidate={this.state.nameInputControls.validation.required}
+                        touched={this.state.nameInputControls.touched}
+                        changed={(event) => this.onPlayerInputChange(event)} 
+                    />
                     <Button btnType="Success" clicked={this.onPlayerSubmit}>ADD</Button>
                     <Button btnType="Danger" clicked={this.cancelAddPlayer}>CANCEL</Button>
                 </Modal>

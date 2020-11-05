@@ -56,7 +56,7 @@ exports.login = (req, res, next) => {
                 error.statusCode = 401;
                 throw error;
             }
-            const expiration = 9;
+            const expiration = 36000;
             const userName = loadedUser.name;
             const token = jwt.sign({
                 email: loadedUser.email,

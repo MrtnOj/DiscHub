@@ -185,12 +185,21 @@ class Card extends Component {
 
         return (
             <Auxiliary>
+                <h3 className={classes.CourseName}>{this.props.course.name}</h3>
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.baskets} />
                 <div className={classes.Cards}>
                     {scoringCards}
                     {/* {this.state.validityErrorDisplay ? <p>{this.state.inValidCardMessage}</p> : null } */}
-                    <Button disabled={!this.state.scoreCardValid} btnType="Success" clicked={() => this.submitScoreHandler()}>Submit scores!</Button>
+                    <Button 
+                        className={classes.SubmitScoresButton} 
+                        disabled={!this.state.scoreCardValid} 
+                        btnType="Success" 
+                        clicked={() => this.submitScoreHandler()}
+                    >Submit scores!
+                    </Button>
                 </div>
+                {/* div below is to make the page scrollable when scorecard extends below the numeric keyboard */}
+                <div style={{ height: '30vh'}}></div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
             </Auxiliary>
         );
