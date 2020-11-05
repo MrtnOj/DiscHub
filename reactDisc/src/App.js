@@ -1,6 +1,6 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Route, Switch } from 'react-router';
+import React, { Component } from 'react';
+import { Route, Switch, withRouter, Redirect } from 'react-router';
+import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
 import ScoreCards from './containers/ScoreCard/Cards/Cards';
@@ -11,25 +11,64 @@ import Logout from './containers/Auth/Logout/Logout';
 import RoundScores from './containers/Rounds/RoundScores';
 import RoundScoreCard from './containers/Rounds/RoundScoreCard/RoundScoreCard';
 import WeatherCards from './containers/Weather/WeatherCards';
+import * as actions from './store/actions/auth';
 
 
-function App() {
-  return (
-      <BrowserRouter>
-        <Layout>
-          <Switch>
-            <Route path="/scoring" component={ScoreCards} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/playerselect" component={ScoreCardInit} />
-            <Route path="/weather" component={WeatherCards} />
-            <Route path="/rounds/:user" exact component={RoundScores} />
-            <Route path="/round/:id" exact component={RoundScoreCard} />
-            <Route path="/" exact component={ChooseCourse} />
-          </Switch>
-        </Layout>
-      </BrowserRouter>
-  );
+class App extends Component {
+
+  componentDidMount () {
+    this.props.onTryAutoSignup(this.props.token, this.props.userId, this.props.name, this.props.expirationDate);
+  }
+
+  render () {
+    let routes = (
+      <Switch>
+          <Route path="/scoring" component={ScoreCards} />
+          <Route path="/auth" component={Auth} />
+          <Route path="/playerselect" component={ScoreCardInit} />
+          <Route path="/weather" component={WeatherCards} />
+          <Route path="/" exact component={ChooseCourse} />
+          <Redirect to="/" />
+        </Switch>
+    );
+
+    if ( this.props.isAuthenticated ) {
+      routes = (
+        <Switch>
+          <Route path="/scoring" component={ScoreCards} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/playerselect" component={ScoreCardInit} />
+          <Route path="/weather" component={WeatherCards} />
+          <Route path="/rounds/:user" component={RoundScores} />
+          <Route path="/round/:id" component={RoundScoreCard} />
+          <Route path="/" exact component={ChooseCourse} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+
+    return (
+      <Layout>
+        {routes}
+      </Layout>
+    )
+  } 
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null,
+    token: state.token,
+    userId: state.userId,
+    name: state.userName,
+    expirationDate: state.expirationDate
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: (token, userId, name, expirationDate) => dispatch( actions.authCheckState(token, userId, name, expirationDate) )
+  };
+};
+
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )( App ));

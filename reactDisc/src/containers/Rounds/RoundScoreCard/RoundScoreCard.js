@@ -31,6 +31,9 @@ class RoundScoreCard extends Component {
                 const parTotal = pars.reduce(( acc, cur ) => acc + cur);
                 this.setState({ playerScores: playerScores, players: players, pars: pars, courseName: courseName, date: date[0], parTotal: parTotal });
             })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     convertRoundData = () => {

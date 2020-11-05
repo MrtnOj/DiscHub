@@ -17,7 +17,8 @@ const initialState = {
     error: null,
     loading: false,
     userName: null,
-    signUpMessage: null
+    signUpMessage: null,
+    expirationDate: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
                 token: action.token,
                 userId: action.userId,
                 userName: action.userName,
+                expirationDate: action.expirationDate,
                 signUpMessage: action.signUpMessage,
                 error: null,
                 loading: false
@@ -45,7 +47,7 @@ const reducer = (state = initialState, action) => {
                 loading: false
             });
         case actionTypes.AUTH_LOGOUT:
-            return updateObject(state, { token: null, userId: null, userName: null })
+            return updateObject(state, { token: null, userId: null, userName: null, signUpMessage: null })
         default:
             return state;
     }

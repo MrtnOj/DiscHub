@@ -7,8 +7,11 @@ import RoundTile from '../../components/SavedRoundComponents/RoundTitleTiles/Rou
 
 class RoundScores extends Component {
     state = {
-        scores: []
+        scores: [],
+        notAuthenticatedRedirect: null,
+        pask: null
     }
+
 
     componentDidMount () {
         axios.get('/scores/users/' + this.props.match.params.user, { headers: {
@@ -19,7 +22,10 @@ class RoundScores extends Component {
                 const roundScores = response.data;
                 console.log(roundScores);
                 this.setState({ scores: roundScores });
-            });
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     roundTileClickedHandler = (id) => {
@@ -39,6 +45,7 @@ class RoundScores extends Component {
 
         return (
             <div>
+                {this.state.notAuthenticatedRedirect}
                 {scoreTiles}
             </div>
         );  

@@ -8,12 +8,13 @@ export const authStart = () => {
     }
 };
 
-export const authSuccess = (token, userId, name, message) => {
+export const authSuccess = (token, userId, name, expirationDate, message) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
         userId: userId,
         userName: name,
+        expirationDate: expirationDate,
         signUpMessage: message
     }
 };
@@ -56,7 +57,8 @@ export const auth = (email, password, nameEl) => {
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
-                dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, response.data.message ));
+                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+                dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {
@@ -65,3 +67,18 @@ export const auth = (email, password, nameEl) => {
             });
     }
 }
+
+export const authCheckState = (token, userId, name, expirationDate) => {
+    return dispatch => {
+        if (!token) {
+            dispatch(logout());
+        } else {
+            if (new Date(expirationDate) <= new Date()) {
+                dispatch(logout());
+            } else {
+                dispatch(authSuccess(token, userId, name, expirationDate));
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
+            }   
+        }
+    };
+};

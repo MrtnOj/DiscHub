@@ -8,7 +8,6 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/auth';
 import formValidityCheck from '../../util/formValidityCheck';
-// import _ from 'lodash';
 
 class Auth extends Component {
     state = {
@@ -63,9 +62,6 @@ class Auth extends Component {
         event.preventDefault();
         if (!this.state.isSignIn) {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.controls.name.value);
-            // let newFormValues = _.cloneDeep(this.state.controls);
-            // this.setState({ controls: newFormValues });
-            
         } else {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
         }
