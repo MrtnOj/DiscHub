@@ -52,6 +52,32 @@ ul {
     list-style: none;
 }
 
+.unfinishedRoundContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    top: 30px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.UnfinishedRoundText {
+    display: block;
+    text-align: center;
+}
+
+.UnfinishedRoundButton {
+    position: relative;
+    font-size: 16px;
+    color: red;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .AutoCompleteBox li {
     box-sizing: border-box;
     font-size: 16px;

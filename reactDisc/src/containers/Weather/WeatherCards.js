@@ -55,6 +55,7 @@ class WeatherCards extends Component {
         return (
             <Auxiliary>
                 <div className={classes.WeatherCardWrapper}>
+                    <h3>{this.props.course.name}</h3>
                     <div className={classes.ButtonsContainer}>
                         <button className={classes.Button} onClick={() => this.dateButtonClickHandler('today')}>
                             {this.state.dayOne[0].formatedDate} {this.state.dayOne[0].weekDay}

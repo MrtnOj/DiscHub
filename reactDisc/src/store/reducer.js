@@ -24,9 +24,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.START_ROUND_CLICKED:
-            return updateObject(state, { courseName: action.courseName, playerInputs: action.playerInputs });
+            return updateObject(state, {playerInputs: action.playerInputs });
         case actionTypes.COURSE_CLICKED:
             return updateObject(state, { course: action.course });
+        case actionTypes.COURSE_BASKETS_REMOVE:
+            return updateObject(state, { baskets:  [{}] })
         case actionTypes.COURSE_BASKETS_SET:
             return updateObject(state, { baskets: action.baskets });
         case actionTypes.AUTH_START:

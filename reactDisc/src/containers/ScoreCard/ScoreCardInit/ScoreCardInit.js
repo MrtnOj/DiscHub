@@ -95,6 +95,7 @@ class ScoreCardInit extends Component {
                 <PlayerBlock key={player.id} playerName={player.name} removePlayer={() => this.removePlayerHandler(player.id)} />
             )
         });
+
         return (
             <Auxiliary>
                 <Modal show={this.state.addingPlayer}>
@@ -118,7 +119,7 @@ class ScoreCardInit extends Component {
                         +Add
                     </Button>
                     <Button clicked={() => {
-                        this.props.startRoundClicked(this.props.course.name, this.state.players);
+                        this.props.startRoundClicked(this.state.players);
                         this.onSubmitRedirect()}}
                         btnType="Success">
                         START
@@ -134,7 +135,7 @@ const mapStateToProps = state => {
         course: state.course,
         players: state.playerInputs,
         userName: state.userName,
-        userId: state.userId
+        userId: state.userId,
     };
 }
 

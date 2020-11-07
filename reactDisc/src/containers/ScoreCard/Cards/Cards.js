@@ -40,10 +40,9 @@ class Card extends Component {
                     }
                 });
                 this.setState({ activePlayer: this.props.players[0].id });
-                this.props.courseBasketsSet(holes);
-                // if (this.props.baskets.length <= 1) {
-                //     this.props.courseBasketsSet(holes)
-                // }
+                if (this.props.baskets.length <= 1) {
+                    this.props.courseBasketsSet(holes)
+                }
             });
     };
 
@@ -148,6 +147,7 @@ class Card extends Component {
 
     submitScoreHandler = () => {
         if (this.state.scoreCardValid) {
+            console.log(this.props.baskets);
             const scoresObject = this.props.baskets;
             scoresObject.forEach(el => delete el.visible);
             const scores = {

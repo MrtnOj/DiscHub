@@ -8,6 +8,14 @@
     justify-items: center;
 }
 
+.WeatherCardWrapper h3 {
+    position: relative;
+    display: block;
+    width: 80vw;
+    text-align: center;
+    margin: 0 auto;
+}
+
 .WeatherCards {
     position: relative;
     width: 100%;

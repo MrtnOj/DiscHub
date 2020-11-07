@@ -5,13 +5,15 @@ import axios from '../../../../axios-courses';
 import classes from './ChooseCourse.module.css';
 
 import Button from '../../../../components/UI/Button/Button';
-import { courseClicked } from '../../../../store/actions/scoreCardInit';
+import { courseBasketsRemove, courseClicked } from '../../../../store/actions/scoreCardInit';
+import Auxiliary from '../../../../hoc/Auxiliary';
 
 class ChooseCourse extends Component {
     state = {
         inputValue: '',
         courses: [],
-        suggestions: []
+        suggestions: [],
+        courseSelected: false
     };
 
     componentDidMount () {
@@ -35,20 +37,26 @@ class ChooseCourse extends Component {
     };
 
     suggestionSelected = (value) => {
-        axios.get('/courses')
-        .then(response => {
-            const course = response.data.find(course => course.name === value);
-            this.props.courseClicked(course);
-        })
-        this.setState({ inputValue: value, suggestions: [] });
+        this.setState({ inputValue: value, suggestions: [], courseSelected: true });
     };
 
-    courseSelectRedirectToScoring = () => {
-        this.props.history.push('/playerselect');
+    courseSelectRedirectToInit = () => {
+        this.props.courseBasketsRemove();
+        if (this.state.courseSelected && this.state.courses.includes(this.state.inputValue)) {
+            axios.get('/courses')
+            .then(response => {
+                const course = response.data.find(course => course.name === this.state.inputValue);
+                this.props.courseClicked(course);
+            })
+            this.props.history.push('/playerselect');
+        }
     }
 
     courseSelectRedirectToWeather = () => {
-        this.props.history.push('/weather');
+        if (this.state.courseSelected && this.state.courses.includes(this.state.inputValue)) {
+            this.props.history.push('/weather');
+        }
+        
     }
 
     renderSuggestions () {
@@ -68,24 +76,43 @@ class ChooseCourse extends Component {
 
     render () {
         const { inputValue } = this.state;
+
+        let unfinishedRound = null;
+        if (this.props.baskets !== null) {
+            unfinishedRound = (
+                <div className={classes.unfinishedRoundContainer}>
+                    <span className={classes.UnfinishedRoundText}>You have an unfinished round </span>
+                    <button 
+                        className={classes.UnfinishedRoundButton}
+                        onClick={() => this.props.history.push('/scoring')}
+                    >
+                        {this.props.course.name}
+                    </button>
+                </div>
+            )
+        }
+
         return (
-            <div className={classes.CourseChoose}>
-                <h3>Search for a course</h3> 
-                <input value={inputValue} onChange={this.onInputChange} type="text"></input>
-                <div className={classes.SuggestionBoxContainer}>
-                    {this.renderSuggestions()}
+            <Auxiliary>
+                <div className={classes.CourseChoose}>
+                    <h3>Search for a course</h3> 
+                    <input value={inputValue} onChange={this.onInputChange} type="text"></input>
+                    <div className={classes.SuggestionBoxContainer}>
+                        {this.renderSuggestions()}
+                    </div>
+                    <div className={classes.buttonsContainer}>
+                        <Button btnType="Success" 
+                            clicked={() => {
+                                this.courseSelectRedirectToInit()}
+                            }>Start a Round</Button>
+                        <Button btnType="Success"
+                            clicked={() => {
+                                this.courseSelectRedirectToWeather()
+                            }}>Check Weather</Button>
+                    </div>
                 </div>
-                <div className={classes.buttonsContainer}>
-                    <Button btnType="Success" 
-                        clicked={() => {
-                            this.courseSelectRedirectToScoring()}
-                        }>Start a Round</Button>
-                    <Button btnType="Success"
-                        clicked={() => {
-                            this.courseSelectRedirectToWeather()
-                        }}>Check Weather</Button>
-                </div>
-            </div>
+                {unfinishedRound}
+            </Auxiliary>
         );
     }
 };
@@ -98,7 +125,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        courseClicked: (course) => dispatch(courseClicked(course))
+        courseClicked: (course) => dispatch(courseClicked(course)),
+        courseBasketsRemove: () => dispatch(courseBasketsRemove())
     }
 }
 
