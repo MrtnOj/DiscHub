@@ -10,7 +10,10 @@ const persistConfig = {
 
 const initialState = {
     playerInputs: [],
-    baskets: [{}],
+    currentScoring: {
+        scoringOwnerId: null,
+        holes: [{}]
+    },
     course: {},
     token: null,
     userId: null,
@@ -28,9 +31,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.COURSE_CLICKED:
             return updateObject(state, { course: action.course });
         case actionTypes.COURSE_BASKETS_REMOVE:
-            return updateObject(state, { baskets:  [{}] })
+            return updateObject(state, { currentScoring:  action.currentScoring })
         case actionTypes.COURSE_BASKETS_SET:
-            return updateObject(state, { baskets: action.baskets });
+            return updateObject(state, { currentScoring:  action.currentScoring });
         case actionTypes.AUTH_START:
             return updateObject(state, { error: null, loading: true, signUpMessage: null });
         case actionTypes.AUTH_SUCCESS:

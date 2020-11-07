@@ -17,5 +17,9 @@ export const courseClicked = (course) => {
 export const courseBasketsRemove = () => {
     return {
         type: actionTypes.COURSE_BASKETS_REMOVE,
+        currentScoring: {
+            scoringOwnerId: '',
+            holes: [{}]
+        }
     }
 }

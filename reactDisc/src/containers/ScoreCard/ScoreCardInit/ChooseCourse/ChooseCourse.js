@@ -78,7 +78,7 @@ class ChooseCourse extends Component {
         const { inputValue } = this.state;
 
         let unfinishedRound = null;
-        if (this.props.baskets !== null) {
+        if (this.props.currentScoringHoles.length >= 1 && this.props.currentScoringId === this.props.userId) {
             unfinishedRound = (
                 <div className={classes.unfinishedRoundContainer}>
                     <span className={classes.UnfinishedRoundText}>You have an unfinished round </span>
@@ -119,7 +119,10 @@ class ChooseCourse extends Component {
 const mapStateToProps = state => {
     return {
         course: state.course,
-        baskets: state.baskets
+        currentScoringHoles: state.currentScoring.holes,
+        currentScoringId: state.currentScoring.scoringOwnerId,
+        userId: state.userId
+
     }
 }
 

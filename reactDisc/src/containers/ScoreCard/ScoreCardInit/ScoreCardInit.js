@@ -99,7 +99,6 @@ class ScoreCardInit extends Component {
         return (
             <Auxiliary>
                 <Modal show={this.state.addingPlayer}>
-                    {/* <input value={this.state.playerInputValue} onChange={this.onPlayerInputChange}></input> */}
                     <Input 
                         elementConfig={this.state.nameInputControls.elementConfig}
                         value={this.state.nameInputControls.value}

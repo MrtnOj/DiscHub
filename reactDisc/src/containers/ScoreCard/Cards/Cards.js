@@ -10,6 +10,7 @@ import NumericKeyboard from '../../../components/UI/NumericKeyboard/NumericKeybo
 import classes from './Cards.module.css';
 import Button from '../../../components/UI/Button/Button';
 import { courseBasketsSet } from '../../../store/actions/scoring';
+import { courseBasketsRemove } from '../../../store/actions/scoreCardInit';
 
 class Card extends Component {
     state = {
@@ -40,14 +41,14 @@ class Card extends Component {
                     }
                 });
                 this.setState({ activePlayer: this.props.players[0].id });
-                if (this.props.baskets.length <= 1) {
-                    this.props.courseBasketsSet(holes)
+                if (this.props.currentScoringHoles.length <= 1) {
+                    this.props.courseBasketsSet(holes, this.props.userId)
                 }
             });
     };
 
     cardButtonHandler = (holeNr) => {
-        const newVisible = this.props.baskets.map(el => {
+        const newVisible = this.props.currentScoringHoles.map(el => {
             if (el.hole === holeNr) {
                 const updatedElement = {
                     ...el,
@@ -63,7 +64,7 @@ class Card extends Component {
             }
         });
         this.setState({ activePlayer: this.props.players[0].id });
-        this.props.courseBasketsSet(newVisible);
+        this.props.courseBasketsSet(newVisible, this.props.userId);
     };
 
     activePlayerHandler = (id) => {
@@ -76,21 +77,22 @@ class Card extends Component {
         if (this.props.players.length-1 === this.props.players.indexOf(scoringPlayer)) {
             nextPlayer = scoringPlayer;
         }
-        const newBaskets = this.props.baskets.map(basket => {
+        const newBaskets = this.props.currentScoringHoles.map(basket => {
             if (basket.visible) {
                 basket[scoringPlayer.name] = btnValue
             }
             return basket;
         });
         this.setState({ activePlayer: nextPlayer.id });
-        this.props.courseBasketsSet(newBaskets);
+        this.props.courseBasketsSet(newBaskets, this.props.userId);
         this.scoreCardValidityChecker();
+        console.log(this.props.currentScoringHoles);
     }
 
     keyBoardArrowHandler = (arrowDirection) => {
         //arrowDirection = true for next card and false for previous card
-        const activeCardIndex = this.props.baskets.indexOf(this.props.baskets.find(el => el.visible));
-        const newActive = this.props.baskets.map((el, index) => {
+        const activeCardIndex = this.props.currentScoringHoles.indexOf(this.props.currentScoringHoles.find(el => el.visible));
+        const newActive = this.props.currentScoringHoles.map((el, index) => {
             if (arrowDirection && index === activeCardIndex+1) {
                 const updatedElement = {
                     ...el,
@@ -103,7 +105,7 @@ class Card extends Component {
                     visible: true
                 }
                 return updatedElement;
-            } else if ((!arrowDirection && activeCardIndex === 0) || (arrowDirection && activeCardIndex === this.props.baskets.length -1)) {
+            } else if ((!arrowDirection && activeCardIndex === 0) || (arrowDirection && activeCardIndex === this.props.currentScoringHoles.length -1)) {
                 return el;
             } else {
                 const updatedElement = {
@@ -114,7 +116,7 @@ class Card extends Component {
             }
         });
         this.setState({ activePlayer: this.props.players[0].id });
-        this.props.courseBasketsSet(newActive);
+        this.props.courseBasketsSet(newActive, this.props.userId);
     }
 
     scoreCardValidityChecker = () => {
@@ -122,7 +124,7 @@ class Card extends Component {
         const playerNames = this.props.players.map(player => {
             return player.name;
         });
-        this.props.baskets.forEach(basket => {
+        this.props.currentScoringHoles.forEach(basket => {
             let scoreInputsFilled = true;
             let validScores = true;
             for (const name of playerNames) {
@@ -147,8 +149,7 @@ class Card extends Component {
 
     submitScoreHandler = () => {
         if (this.state.scoreCardValid) {
-            console.log(this.props.baskets);
-            const scoresObject = this.props.baskets;
+            const scoresObject = this.props.currentScoringHoles;
             scoresObject.forEach(el => delete el.visible);
             const scores = {
                 courseName: this.props.course.name,
@@ -165,6 +166,7 @@ class Card extends Component {
                     console.log(response);
                     this.props.history.push({ pathname: '/round/' + response.data.result._id });
                 });
+            this.props.courseBasketsRemove()
         } else {
             this.setState({ validityErrorDisplay: true });
         }
@@ -172,7 +174,7 @@ class Card extends Component {
         
 
     render () {
-        const scoringCards = this.props.baskets.map(el => (
+        const scoringCards = this.props.currentScoringHoles.map(el => (
             <HoleScoreCard key={el.hole}
             numberPressed={this.changeInputOnNrPress}
             activePlayerHandler={this.activePlayerHandler}
@@ -186,7 +188,7 @@ class Card extends Component {
         return (
             <Auxiliary>
                 <h3 className={classes.CourseName}>{this.props.course.name}</h3>
-                <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.baskets} />
+                <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.currentScoringHoles} />
                 <div className={classes.Cards}>
                     {scoringCards}
                     {/* {this.state.validityErrorDisplay ? <p>{this.state.inValidCardMessage}</p> : null } */}
@@ -211,14 +213,16 @@ const mapStateToProps = state => {
         course: state.course,
         players: state.playerInputs,
         userId: state.userId,
-        baskets: state.baskets,
+        currentScoringHoles: state.currentScoring.holes,
+        currentScoringId: state.currentScoring.scoringOwnerId,
         token: state.token
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        courseBasketsSet: (baskets) => dispatch(courseBasketsSet(baskets))
+        courseBasketsSet: (baskets, id) => dispatch(courseBasketsSet(baskets, id)),
+        courseBasketsRemove: () => dispatch(courseBasketsRemove())
     }
 }
 
