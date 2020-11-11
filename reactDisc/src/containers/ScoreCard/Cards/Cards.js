@@ -17,7 +17,8 @@ class Card extends Component {
         activePlayer: '',
         scoreCardValid: false,
         validityErrorDisplay: false,
-        inValidCardMessage: ''
+        inValidCardMessage: '',
+        totalScores: {}
     };
 
     componentDidMount () {
@@ -45,7 +46,23 @@ class Card extends Component {
                     this.props.courseBasketsSet(holes, this.props.userId)
                 }
             });
+        console.log(this.props.currentScoringHoles);
     };
+
+    totalScoreCalc = () => {
+        let totalScores = {};
+        for (const player of this.props.players) {
+            let playerTotalScore = 0;
+            this.props.currentScoringHoles.forEach(hole => {
+                if (player.name in hole) {
+                    console.log('in here')
+                    playerTotalScore = playerTotalScore + hole[player.name] - hole.par;
+                }
+            });
+            Object.assign(totalScores, {[player.name]: playerTotalScore})
+        }
+        this.setState({ totalScores: totalScores })
+    }
 
     cardButtonHandler = (holeNr) => {
         const newVisible = this.props.currentScoringHoles.map(el => {
@@ -86,7 +103,7 @@ class Card extends Component {
         this.setState({ activePlayer: nextPlayer.id });
         this.props.courseBasketsSet(newBaskets, this.props.userId);
         this.scoreCardValidityChecker();
-        console.log(this.props.currentScoringHoles);
+        this.totalScoreCalc()
     }
 
     keyBoardArrowHandler = (arrowDirection) => {
@@ -183,7 +200,8 @@ class Card extends Component {
             scores={el}
             par={el.par}
             active={el.visible}
-            players={this.props.players} />));
+            players={this.props.players}
+            totalScores={this.state.totalScores} />));
 
         return (
             <Auxiliary>

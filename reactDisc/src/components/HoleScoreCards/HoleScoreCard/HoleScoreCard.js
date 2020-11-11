@@ -13,6 +13,7 @@ const HoleScoreCard = (props) => (
             {props.players.map(player => (
                 <PersonScore mong={player.name}
                 score={props.scores[player.name]}
+                totalScore={props.totalScores[player.name]}
                 numberPressed={props.numberPressed}
                 active={props.activePlayer}
                 id={player.id}
