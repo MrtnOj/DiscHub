@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.COURSE_BASKETS_SET:
             return updateObject(state, { currentScoring:  action.currentScoring });
         case actionTypes.AUTH_START:
-            return updateObject(state, { error: null, loading: true, signUpMessage: null });
+            return updateObject(state, { error: null, signUpMessage: null, token: null });
         case actionTypes.AUTH_SUCCESS:
             return updateObject(state, { 
                 token: action.token,

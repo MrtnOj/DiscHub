@@ -20,11 +20,12 @@ router.post('/signup', [
     .normalizeEmail(),
     body('password')
     .trim()
-    .isLength({ min: 5 }),
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters.'),
     body('name')
     .trim()
-    .not()
-    .isEmpty()
+    .isLength( {min: 3, max: 12})
+    .withMessage('Username must be between 3 and 12 characters.')
     ],
     authController.signup
 );

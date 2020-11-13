@@ -58,7 +58,9 @@ export const auth = (email, password, nameEl) => {
             .then(response => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
+                if (!nameEl) {
+                    dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
+                }
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {
@@ -80,5 +82,5 @@ export const authCheckState = (token, userId, name, expirationDate) => {
                 dispatch(checkAuthTimeout((new Date(expirationDate).getTime() - new Date().getTime()) / 1000 ));
             }   
         }
-    };
-};
+    }
+}

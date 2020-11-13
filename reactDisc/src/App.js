@@ -23,13 +23,13 @@ class App extends Component {
   render () {
     let routes = (
       <Switch>
-          <Route path="/scoring" component={ScoreCards} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/playerselect" component={ScoreCardInit} />
-          <Route path="/weather" component={WeatherCards} />
-          <Route path="/" exact component={ChooseCourse} />
-          <Redirect to="/" />
-        </Switch>
+        <Route path="/scoring" component={ScoreCards} />
+        <Route path="/auth" component={Auth} />
+        <Route path="/playerselect" component={ScoreCardInit} />
+        <Route path="/weather" component={WeatherCards} />
+        <Route path="/" exact component={ChooseCourse} />
+        <Redirect to="/" />
+      </Switch>
     );
 
     if ( this.props.isAuthenticated ) {
@@ -37,6 +37,7 @@ class App extends Component {
         <Switch>
           <Route path="/scoring" component={ScoreCards} />
           <Route path="/logout" component={Logout} />
+          <Route path="/auth" component={Auth} />
           <Route path="/playerselect" component={ScoreCardInit} />
           <Route path="/weather" component={WeatherCards} />
           <Route path="/rounds/:user" component={RoundScores} />

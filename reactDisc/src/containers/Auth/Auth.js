@@ -35,7 +35,7 @@ class Auth extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    minLength: 8
+                    minLength: 6
                 },
                 valid: false,
                 touched: false
@@ -55,7 +55,7 @@ class Auth extends Component {
                 touched: true
             }
         };
-        this.setState({ controls: updatedControls});
+        this.setState({ controls: updatedControls });
     }
 
     submitHandler = (event) => {
@@ -84,7 +84,7 @@ class Auth extends Component {
                     value: '',
                     validation: {
                         required: true,
-                        minLength: 5,
+                        minLength: 3,
                         maxLength: 12
                     },
                     valid: false,
@@ -128,13 +128,13 @@ class Auth extends Component {
 
         let authRedirect = null;
         if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to='/'/>
+            authRedirect = <Redirect to="/"/>
         }
 
 	    let signUpSuccessfulMessage = null;
         if (!this.props.isAuthenticated && this.props.signUpMessage) {
             signUpSuccessfulMessage = <p>{this.props.signUpMessage}</p>;
-            authRedirect = <Redirect to='/auth'/>
+            authRedirect = <Redirect to="/auth"/>
         }
 
         return (
