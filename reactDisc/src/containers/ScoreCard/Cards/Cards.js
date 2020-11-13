@@ -209,6 +209,7 @@ class Card extends Component {
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.currentScoringHoles} />
                 <div className={classes.Cards}>
                     {scoringCards}
+                    {!this.props.token ? <span className={classes.LoginWarning}>You need to log in to save your rounds.</span> : null }
                     {/* {this.state.validityErrorDisplay ? <p>{this.state.inValidCardMessage}</p> : null } */}
                     <Button 
                         className={classes.SubmitScoresButton} 
@@ -219,7 +220,7 @@ class Card extends Component {
                     </Button>
                 </div>
                 {/* div below is to make the page scrollable when scorecard extends below the numeric keyboard */}
-                <div style={{ height: '30vh'}}></div>
+                <div style={{ height: '35vh'}}></div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
             </Auxiliary>
         );

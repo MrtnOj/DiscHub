@@ -6,8 +6,8 @@ import PersonScore from './PersonScoring/PersonScoring';
 const HoleScoreCard = (props) => (
     <div className={classes.scoreCard} style={{ display: props.active ? 'block' : 'none' }}>
         <div className={classes.cardTitle}>
-            <h3>Hole {props.holeNumber}    --  </h3>
-            <h4>   Par {props.par}</h4>
+            <h3>Hole {props.holeNumber}    -  </h3>
+            <span>   Par {props.par}</span>
         </div>
         <div className={classes.playerElements}>
             {props.players.map(player => (

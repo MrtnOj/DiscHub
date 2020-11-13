@@ -86,7 +86,9 @@ class ScoreCardInit extends Component {
     };
 
     onSubmitRedirect = () => {
-        this.props.history.push('/scoring');
+        if (this.state.players.length !== 0) {
+            this.props.history.push('/scoring');
+        } 
     }
 
     render () {

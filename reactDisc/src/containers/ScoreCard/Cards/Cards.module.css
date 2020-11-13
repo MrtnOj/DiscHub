@@ -15,4 +15,12 @@
     margin: 0 auto;
 }
 
-
+.LoginWarning {
+    position: relative;
+    display: block;
+    width: 80vw;
+    margin: 0 auto;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}

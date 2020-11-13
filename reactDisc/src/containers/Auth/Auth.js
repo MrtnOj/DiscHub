@@ -79,12 +79,13 @@ class Auth extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'name',
-                        placeholder: 'Fullname'
+                        placeholder: 'Username'
                     },
                     value: '',
                     validation: {
                         required: true,
-                        minLength: 5
+                        minLength: 5,
+                        maxLength: 12
                     },
                     valid: false,
                     touched: false
