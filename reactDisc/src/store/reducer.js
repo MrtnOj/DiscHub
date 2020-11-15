@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
                 loading: false
             });
         case actionTypes.AUTH_LOGOUT:
-            return updateObject(state, { token: null, userId: null, userName: null, signUpMessage: null })
+            return updateObject(state, { token: null, userId: null, userName: null })
         default:
             return state;
     }

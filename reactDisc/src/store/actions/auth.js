@@ -8,7 +8,7 @@ export const authStart = () => {
     }
 };
 
-export const authSuccess = (token, userId, name, expirationDate, message) => {
+export const authSuccess = (token = null, userId, name, expirationDate, message = null) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
@@ -58,9 +58,7 @@ export const auth = (email, password, nameEl) => {
             .then(response => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                if (!nameEl) {
-                    dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
-                }
+                dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {

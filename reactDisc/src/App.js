@@ -32,7 +32,7 @@ class App extends Component {
       </Switch>
     );
 
-    if ( this.props.isAuthenticated ) {
+    if ( this.props.token !== null ) {
       routes = (
         <Switch>
           <Route path="/scoring" component={ScoreCards} />
@@ -58,7 +58,6 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.token !== null,
     token: state.token,
     userId: state.userId,
     name: state.userName,

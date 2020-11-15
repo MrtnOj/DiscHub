@@ -62,6 +62,21 @@ class Auth extends Component {
         event.preventDefault();
         if (!this.state.isSignIn) {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.controls.name.value);
+            setTimeout(() => {
+                const newControls = {
+                    ...this.state.controls,
+                    email: {
+                        ...this.state.controls.email,
+                        value: ''
+                    },
+                    password: {
+                        ...this.state.controls.name,
+                        value: ''
+                    }
+                };
+                delete newControls.name;
+                this.setState({ regSuccessMsg: this.props.signUpMessage, controls: newControls, isSignIn: true })
+            }, 500)
         } else {
             this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
         }
@@ -112,7 +127,8 @@ class Auth extends Component {
                 invalid={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                changed={(event) => this.inputChangedHandler(event, formElement.id)}
+            />
         ));
 
         if (this.props.loading) {
@@ -127,20 +143,19 @@ class Auth extends Component {
         }
 
         let authRedirect = null;
-        if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to="/"/>
+        if ( this.props.isAuthenticated ) {
+            authRedirect = <Redirect to="/" />
         }
 
 	    let signUpSuccessfulMessage = null;
-        if (!this.props.isAuthenticated && this.props.signUpMessage) {
-            signUpSuccessfulMessage = <p>{this.props.signUpMessage}</p>;
-            authRedirect = <Redirect to="/auth"/>
+        if (!this.props.isAuthenticated && this.state.regSuccessMsg) {
+            signUpSuccessfulMessage = <p>{this.state.regSuccessMsg}</p>;
         }
 
         return (
             <div className={classes.Auth}>
-                {authRedirect}
                 {errorMessage}
+                {authRedirect}
                 {signUpSuccessfulMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
@@ -148,7 +163,9 @@ class Auth extends Component {
                 </form>
                 <Button 
                     clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignIn ? 'REGISTER' : 'LOGIN'}</Button>
+                    btnType="Danger">
+                    SWITCH TO {this.state.isSignIn ? 'REGISTER' : 'LOGIN'}
+                </Button>
             </div>
         )
     }
