@@ -49,9 +49,9 @@ if (process.env.NODE_ENV === 'production') {
 const mongoString = process.env.MONGO_URI;
 const port = process.env.PORT;
 
-mongoose.connect('mongodb+srv://MartiniServer:Infra2NeKM7@cluster0.g0zrs.mongodb.net/DiscAppDataBase?retryWrites=true&w=majority')
+mongoose.connect(mongoString)
 .then(result => {
-    app.listen(3000);
+    app.listen(port);
 })
 .catch(err => {
     console.log(err);
