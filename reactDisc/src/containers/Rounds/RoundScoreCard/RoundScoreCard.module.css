@@ -65,5 +65,25 @@
     .TableContainer {
         box-shadow: 0 2px 3px #ccc;
         border: 1px solid #eee;
+        font-size: 1em;
+    }
+
+    .TableContainer tr>td:first-child {
+        min-width: 110px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .TableContainer {
+        font-size: 1.2em;
+    }
+
+    .TableContainer tr>td:first-child {
+        min-width: 140px;
+    }
+
+    .TableContainer th, td {
+        min-width: 30px;
+        padding: 4px 3px;
     }
 }

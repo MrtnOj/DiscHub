@@ -4,7 +4,6 @@ exports.getScores = (req, res, next) => {
     const userId = req.params.userId;
     Score.find({ user: userId })
         .then(scores => {
-            console.log(scores);
             res.json(scores);
         })
         .catch(err => {
@@ -21,8 +20,6 @@ exports.postScore = (req, res, next) => {
     score
         .save()
         .then(result => {
-            console.log('Score Posted!');
-            console.log(result);
             res.status(200).json({ result })
         })
         .catch(err => {
@@ -32,7 +29,6 @@ exports.postScore = (req, res, next) => {
 
 exports.getScore = (req, res, next) => {
     const scoreCardId = req.params.scoreCardId;
-    console.log(scoreCardId);
     Score.findById(scoreCardId)
         .then(scoreCard => {
             if (!scoreCard) {

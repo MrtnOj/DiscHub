@@ -17,6 +17,11 @@
     height: 100%;
 }
 
+.Toolbar span {
+    font-size: 20px;
+    color: white
+}
+
 @media (max-width: 499px) {
     .DesktopOnly {
         display: none;

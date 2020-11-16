@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../axios-courses';
+import axios from '../../axiosApi';
 import RoundTile from '../../components/SavedRoundComponents/RoundTitleTiles/RoundTile';
 //import classes from './RoundScores.module.css';
 
 class RoundScores extends Component {
     state = {
         scores: [],
-        notAuthenticatedRedirect: null,
-        pask: null
+        notAuthenticatedRedirect: null
     }
 
 
@@ -20,7 +19,6 @@ class RoundScores extends Component {
     })
             .then(response => {
                 const roundScores = response.data;
-                console.log(roundScores);
                 this.setState({ scores: roundScores });
             })
             .catch(err => {

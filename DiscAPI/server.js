@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
+const path = require('path');
 
 const coursesRouter = require('./routes/courses');
 const scoresRouter = require('./routes/scores');
 const authRouter = require('./routes/auth');
-const mongoURI = require('./config/keys').mongoURI;
 
 const app = express();
 
@@ -34,9 +35,23 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect(mongoURI)
+//server static files if in production
+
+if (process.env.NODE_ENV === 'production') {
+    // set static folder
+    app.use(express.static('reactDisc/build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../reactDisc/build/index.html'))
+    })
+}
+
+const mongoString = process.env.MONGO_URI;
+const port = process.env.PORT;
+
+mongoose.connect(mongoString)
 .then(result => {
-    app.listen(8080);
+    app.listen(port);
 })
 .catch(err => {
     console.log(err);

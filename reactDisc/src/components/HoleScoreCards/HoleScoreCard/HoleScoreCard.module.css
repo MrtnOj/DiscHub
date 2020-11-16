@@ -17,8 +17,16 @@
     justify-content: space-evenly;
 }
 
-h3 {
+.scoreCard h4 {
     display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.Divider {
+    background-color: #F3E9D2;
+    height: 2px;
+    margin-bottom: 10px;
 }
 
 .cardTitle {

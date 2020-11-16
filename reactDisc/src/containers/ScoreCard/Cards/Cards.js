@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
 
-import Auxiliary from '../../../hoc/Auxiliary';
-import axios from '../../../axios-courses';
+import axios from '../../../axiosApi';
 import HoleCardButtons from '../../../components/HoleCardButtons/HoleCardButtons';
 import HoleScoreCard from '../../../components/HoleScoreCards/HoleScoreCard/HoleScoreCard';
 import NumericKeyboard from '../../../components/UI/NumericKeyboard/NumericKeyboard';
@@ -46,7 +44,6 @@ class Card extends Component {
                     this.props.courseBasketsSet(holes, this.props.userId)
                 }
             });
-        console.log(this.props.currentScoringHoles);
     };
 
     totalScoreCalc = () => {
@@ -55,7 +52,6 @@ class Card extends Component {
             let playerTotalScore = 0;
             this.props.currentScoringHoles.forEach(hole => {
                 if (player.name in hole) {
-                    console.log('in here')
                     playerTotalScore = playerTotalScore + hole[player.name] - hole.par;
                 }
             });
@@ -180,7 +176,6 @@ class Card extends Component {
             }
         })
                 .then(response => {
-                    console.log(response);
                     this.props.history.push({ pathname: '/round/' + response.data.result._id });
                 });
             this.props.courseBasketsRemove()
@@ -204,8 +199,8 @@ class Card extends Component {
             totalScores={this.state.totalScores} />));
 
         return (
-            <Auxiliary>
-                <h3 className={classes.CourseName}>{this.props.course.name}</h3>
+            <div>
+                <h4 className={classes.CourseName}>{this.props.course.name}</h4>
                 <HoleCardButtons cardClicked={this.cardButtonHandler} holes={this.props.currentScoringHoles} />
                 <div className={classes.Cards}>
                     {scoringCards}
@@ -222,7 +217,7 @@ class Card extends Component {
                 {/* div below is to make the page scrollable when scorecard extends below the numeric keyboard */}
                 <div style={{ height: '35vh'}}></div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
-            </Auxiliary>
+            </div>
         );
     }
 };

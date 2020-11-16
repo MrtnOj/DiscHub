@@ -70,7 +70,7 @@ class Auth extends Component {
                         value: ''
                     },
                     password: {
-                        ...this.state.controls.name,
+                        ...this.state.controls.password,
                         value: ''
                     }
                 };

@@ -1,10 +1,9 @@
 import React from 'react';
-import cx from 'classnames';
 
 import classes from './HoleCardButton.module.css';
 
 const holeCardButton = (props) => (
-    <div className={!props.active ? classes.holeCardButton : cx(classes.holeCardButton, classes.activeButton)} onClick={props.clicked}>
+    <div className={!props.active ? classes.holeCardButton : [classes.holeCardButton, classes.activeButton].join(' ')} onClick={props.clicked}>
         <p>{props.holeNumber}</p>
     </div>
 );

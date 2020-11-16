@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axiosApi';
 
 import * as actionTypes from './actionTypes';
 
@@ -48,21 +48,19 @@ export const auth = (email, password, nameEl) => {
             password: password,
         };
 
-        let url = 'http://localhost:8080/auth/login'
+        let url = '/auth/login';
 
         if (nameEl) {
-            url = 'http://localhost:8080/auth/signup';
+            url = '/auth/signup';
             authData.name = nameEl;
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                 dispatch(authSuccess(response.data.token, response.data.userId, response.data.name, expirationDate, response.data.message ));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {
-                console.log(err.response.data);
                 dispatch(authFail(err.response.data.message));
             });
     }
