@@ -18,9 +18,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/courses', coursesRouter);
-app.use('/scores', scoresRouter);
-app.use('/auth', authRouter);
+app.use('api/courses', coursesRouter);
+app.use('api/scores', scoresRouter);
+app.use('api/auth', authRouter);
 
 app.use((error, req, res, next) => {
     console.log(error);
