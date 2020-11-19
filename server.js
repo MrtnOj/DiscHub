@@ -18,9 +18,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('api/courses', coursesRouter);
-app.use('api/scores', scoresRouter);
-app.use('api/auth', authRouter);
+app.use('/api/courses', coursesRouter);
+app.use('/api/scores', scoresRouter);
+app.use('/api/auth', authRouter);
 
 app.use((error, req, res, next) => {
     console.log(error);
@@ -35,7 +35,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-//server static files if in production
+//serve static files if in production
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'reactDisc', 'build')));
