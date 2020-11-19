@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm isntall --prefix ../reactDisc && npm run build --prefix ../reactDisc"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../reactDisc && npm run build --prefix ../reactDisc"
   },
   "author": "Martin Ojasalu",
   "license": "ISC",
