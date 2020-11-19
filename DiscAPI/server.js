@@ -37,13 +37,13 @@ mongoose.set('useUnifiedTopology', true);
 
 //server static files if in production
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../reactDisc/build')));
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, '../reactDisc/build')));
 
-    app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../reactDisc/build/index.html'))
-})
-}
+//     app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../reactDisc/build/index.html'))
+// })
+// }
 // set static folder
 
 
