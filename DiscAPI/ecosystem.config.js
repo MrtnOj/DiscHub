@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
       name: 'discapp',
-      script: './DiscAPI/server.js'
+      script: './server.js'
     }],
     deploy: {
       production: {
