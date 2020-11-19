@@ -11,7 +11,7 @@ module.exports = {
         ref: 'origin/master',
         repo: 'git@github.com:MrtnOj/DiscHub.git',
         path: '/home/ubuntu/DiscApp/',
-        'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js'
+        'post-deploy': 'cd ./source/DiscAPI && npm install && pm2 startOrRestart ecosystem.config.js'
       }
     }
   }
