@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 const mongoString = process.env.MONGO_URI;
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 mongoose.connect(mongoString)
 .then(result => {
