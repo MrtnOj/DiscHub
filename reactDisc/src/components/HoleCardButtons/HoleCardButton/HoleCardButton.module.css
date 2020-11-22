@@ -1,6 +1,6 @@
-.holeCardButton {
-    width: 24px;
-    height: 24px;
+.HoleCardButton {
+    width: 25px;
+    height: 25px;
     background-color: #C6DABF;
     border-radius: 50%;
     text-align: center;
@@ -9,31 +9,28 @@
     box-shadow: 2px 2px 1px #F3E9D2;
 }
 
-.activeButton {
+.ActiveButton {
     color: white;
     background-color: #1A936F;
 }
 
-.holeCardButton:hover {
+.HoleCardButton:hover {
     background-color: #1A936F;
     color: white;
 }
 
-.holeCardButton p {
+.HoleCardButton p {
     font-weight: bold;
     font-size: 0.7rem;
+    line-height: 18px;
     margin: 3px;
 }
 
 @media (min-width: 660px) {
-    .holeCardButton {
-        width: 25px;
-        height: 25px;
-    }
-
-    .holeCardButton p {
+    .HoleCardButton p {
         font-weight: bold;
         font-size: 0.8rem;
         margin: 3px;
+        line-height: 18px;
     }
 }

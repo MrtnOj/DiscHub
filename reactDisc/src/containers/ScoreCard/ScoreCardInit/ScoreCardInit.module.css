@@ -10,6 +10,11 @@
     box-sizing: border-box;
 }
 
+.ModalButtonsContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .playerNameFields {
     display: flex;
 }

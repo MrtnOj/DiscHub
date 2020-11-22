@@ -5,7 +5,7 @@ import HoleCardButton from './HoleCardButton/HoleCardButton';
 
 
 const holeCardButtons = (props) => (
-    <div className={classes.holeCardButtons}>
+    <div className={props.holes.length >= 16 ? classes.HoleCardButtons : classes.HoleCardButtonsWeird}>
         {props.holes.map(el => (
             <HoleCardButton key={el.hole} holeNumber={el.hole} clicked={() => props.cardClicked(el.hole)} active={el.visible} />
         ))}

@@ -109,8 +109,10 @@ class ScoreCardInit extends Component {
                         touched={this.state.nameInputControls.touched}
                         changed={(event) => this.onPlayerInputChange(event)} 
                     />
-                    <Button btnType="Success" clicked={this.onPlayerSubmit}>ADD</Button>
-                    <Button btnType="Danger" clicked={this.cancelAddPlayer}>CANCEL</Button>
+                    <div className={classes.ModalButtonsContainer}>
+                        <Button btnType="Success" clicked={this.onPlayerSubmit}>ADD</Button>
+                        <Button btnType="Danger" clicked={this.cancelAddPlayer}>CANCEL</Button>
+                    </div>
                 </Modal>
                 <div className={classes.InitBox}>
                     <h2>{this.props.course.name}</h2>

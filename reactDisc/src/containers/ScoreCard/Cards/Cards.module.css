@@ -1,6 +1,6 @@
 .Cards {
     position: relative;
-    top: 35px;
+    top: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +9,7 @@
 .CourseName {
     position: relative;
     display: block;
-    top: 50px;
+    top: 40px;
     width: 80vw;
     text-align: center;
     margin: 0 auto;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import classes from './WeatherCards.module.css';
 import axios from 'axios';
+
 import readWeatherData from '../../util/readWeatherData';
 import WeatherCard from '../../components/WeatherCard/weatherCard';
 import Auxiliary from '../../hoc/Auxiliary';

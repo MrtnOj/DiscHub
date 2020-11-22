@@ -1,6 +1,6 @@
-.holeCardButtons {
+.HoleCardButtons {
     position: relative;
-    top: 55px;
+    top: 40px;
     margin: auto;
     width: 18rem;
     display: flex;
@@ -9,8 +9,24 @@
     z-index: 3;
 }
 
+/*For when there are weird number of holes*/
+.HoleCardButtonsWeird {
+    position: relative;
+    top: 40px;
+    margin: auto;
+    width: 14rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: 3;
+}
+
 @media (min-width: 660px) {
-    .holeCardButtons {
+    .HoleCardButtons {
+        width: 640px;
+    }
+
+    .HoleCardButtonsWeird {
         width: 640px;
     }
 }

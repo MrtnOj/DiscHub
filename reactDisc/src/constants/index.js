@@ -1,6 +1,6 @@
 const prod = {
     url: {
-        API_URL: 'https://frozen-river-07638.herokuapp.com/api/'
+        API_URL: 'http://localhost:8080/api/'
     }
 }
 

@@ -80,7 +80,7 @@ class ChooseCourse extends Component {
         let unfinishedRound = null;
         if (this.props.currentScoringHoles.length >= 1 && this.props.currentScoringId === this.props.userId) {
             unfinishedRound = (
-                <div className={classes.unfinishedRoundContainer}>
+                <div className={classes.UnfinishedRoundContainer}>
                     <span className={classes.UnfinishedRoundText}>You have an unfinished round </span>
                     <button 
                         className={classes.UnfinishedRoundButton}
@@ -100,15 +100,21 @@ class ChooseCourse extends Component {
                     <div className={classes.SuggestionBoxContainer}>
                         {this.renderSuggestions()}
                     </div>
-                    <div className={classes.buttonsContainer}>
-                        <Button btnType="Success" 
+                    <div className={classes.ButtonsContainer}>
+                        <Button 
+                            btnType="Success" 
                             clicked={() => {
-                                this.courseSelectRedirectToInit()}
-                            }>Start a Round</Button>
-                        <Button btnType="Success"
+                                this.courseSelectRedirectToInit()
+                            }}>
+                            Start a Round
+                        </Button>
+                        <Button 
+                            btnType="Success"
                             clicked={() => {
                                 this.courseSelectRedirectToWeather()
-                            }}>Check Weather</Button>
+                            }}>
+                            Check Weather
+                        </Button>
                     </div>
                 </div>
                 {unfinishedRound}

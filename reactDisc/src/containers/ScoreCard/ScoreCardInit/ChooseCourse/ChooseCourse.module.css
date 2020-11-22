@@ -17,7 +17,6 @@ input {
     outline: none;
     border: 1px solid #ccc;
     background-color: white;
-    font: inherit;
     padding: 6px 10px;
     display: block;
     width: 100%;
@@ -33,6 +32,18 @@ input:focus {
     position: relative;
     width: 100%
 
+}
+
+.ButtonsContainer {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    font-size: 14px;
+}
+
+.ButtonsContainer button {
+    margin: 6px;
+    padding: 6px;
 }
 
 .AutoCompleteBox {
@@ -53,7 +64,7 @@ ul {
     list-style: none;
 }
 
-.unfinishedRoundContainer {
+.UnfinishedRoundContainer {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -94,11 +105,29 @@ ul {
     color: white;
 }
 
-@media(min-width: 500px) {
+@media(min-width: 600px) {
     .CourseChoose {
         width: 50%;
     }
     .AutoCompleteBox li {
         font-size: 20px
+    }
+}
+
+@media(min-width: 1000px) {
+    .CourseChoose {
+        width: 600px;
+    }
+
+    .AutoCompleteBox li {
+        font-size: 20px
+    }
+
+    input {
+        font-size: 20px;
+    }
+
+    .ButtonsContainer {
+        font-size: 20px;
     }
 }
