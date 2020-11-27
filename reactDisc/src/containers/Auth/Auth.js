@@ -42,7 +42,7 @@ class Auth extends Component {
             },
         },
         isSignIn: true,
-	regSuccessMsg: null
+	    regSuccessMsg: null
     }
 
     inputChangedHandler = (event, controlName) => {

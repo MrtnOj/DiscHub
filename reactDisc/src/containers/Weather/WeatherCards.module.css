@@ -30,17 +30,24 @@
 }
 
 .Button {
-    background-color: #114B5F;
-    border: none;
+    background-color: #f7f9fb;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
     border-radius: 5px;
     min-width: 40%;
-    color: white;
+    color: #186c8b;
     outline: none;
     cursor: pointer;
     font: inherit;
     padding: 10px;
     margin: 5px;
     font-weight: bold;
+}
+
+.ButtonActive {
+    background-color: #186c8b;
+    color: #FBF7EF;
+    border: none;
 }
 
 @media (min-width: 800px) {

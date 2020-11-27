@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
 import ScoreCards from './containers/ScoreCard/Cards/Cards';
-import ChooseCourse from './containers/ScoreCard/ScoreCardInit/ChooseCourse/ChooseCourse';
+import ChooseCourse from './containers/ChooseCourse/ChooseCourse';
 import ScoreCardInit from './containers/ScoreCard/ScoreCardInit/ScoreCardInit';
 import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';

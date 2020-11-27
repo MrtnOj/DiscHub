@@ -15,6 +15,7 @@ const initialState = {
         holes: [{}]
     },
     course: {},
+    courseForWeather: {},
     token: null,
     userId: null,
     error: null,
@@ -30,6 +31,8 @@ const reducer = (state = initialState, action) => {
             return updateObject(state, {playerInputs: action.playerInputs });
         case actionTypes.COURSE_CLICKED:
             return updateObject(state, { course: action.course });
+        case actionTypes.WEATHER_COURSE_SET:
+            return updateObject(state, { courseForWeather: action.courseForWeather })
         case actionTypes.COURSE_BASKETS_REMOVE:
             return updateObject(state, { currentScoring:  action.currentScoring })
         case actionTypes.COURSE_BASKETS_SET:

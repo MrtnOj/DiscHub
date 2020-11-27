@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../../../axiosApi';
+import axios from '../../axiosApi';
 import classes from './ChooseCourse.module.css';
 
-import Button from '../../../../components/UI/Button/Button';
-import { courseBasketsRemove, courseClicked } from '../../../../store/actions/scoreCardInit';
-import Auxiliary from '../../../../hoc/Auxiliary';
+import Button from '../../components/UI/Button/Button';
+import { courseBasketsRemove, courseClicked } from '../../store/actions/scoreCardInit';
+import { weatherCourseSet } from '../../store/actions/weather';
+import Auxiliary from '../../hoc/Auxiliary';
 
 class ChooseCourse extends Component {
     state = {
@@ -45,7 +46,9 @@ class ChooseCourse extends Component {
         if (this.state.courseSelected && this.state.courses.includes(this.state.inputValue)) {
             axios.get('/courses')
             .then(response => {
-                const course = response.data.find(course => course.name === this.state.inputValue);
+                return response.data.find(course => course.name === this.state.inputValue);
+            })
+            .then(course => {
                 this.props.courseClicked(course);
             })
             this.props.history.push('/playerselect');
@@ -54,9 +57,15 @@ class ChooseCourse extends Component {
 
     courseSelectRedirectToWeather = () => {
         if (this.state.courseSelected && this.state.courses.includes(this.state.inputValue)) {
-            this.props.history.push('/weather');
-        }
-        
+            axios.get('/courses')
+            .then(response => {
+                return response.data.find(course => course.name === this.state.inputValue);
+            })
+            .then(course => {
+                this.props.weatherCourseSet(course)
+            })
+            this.props.history.push('/weather')
+        } 
     }
 
     renderSuggestions () {
@@ -78,7 +87,7 @@ class ChooseCourse extends Component {
         const { inputValue } = this.state;
 
         let unfinishedRound = null;
-        if (this.props.currentScoringHoles.length >= 1 && this.props.currentScoringId === this.props.userId) {
+        if (this.props.currentScoringHoles.length > 1 && this.props.currentScoringId === this.props.userId) {
             unfinishedRound = (
                 <div className={classes.UnfinishedRoundContainer}>
                     <span className={classes.UnfinishedRoundText}>You have an unfinished round </span>
@@ -135,6 +144,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         courseClicked: (course) => dispatch(courseClicked(course)),
+        weatherCourseSet: (course) => dispatch(weatherCourseSet(course)),
         courseBasketsRemove: () => dispatch(courseBasketsRemove())
     }
 }

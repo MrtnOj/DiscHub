@@ -58,10 +58,14 @@ class WeatherCards extends Component {
                 <div className={classes.WeatherCardWrapper}>
                     <h3>{this.props.course.name}</h3>
                     <div className={classes.ButtonsContainer}>
-                        <button className={classes.Button} onClick={() => this.dateButtonClickHandler('today')}>
+                        <button 
+                            className={this.state.pickedDay === 'today' ? [classes.Button, classes.ButtonActive].join(' ') : classes.Button} 
+                            onClick={() => this.dateButtonClickHandler('today')}>
                             {this.state.dayOne[0].formatedDate} {this.state.dayOne[0].weekDay}
                         </button>
-                        <button className={classes.Button} onClick={() => this.dateButtonClickHandler('tomorrow')}>
+                        <button 
+                            className={this.state.pickedDay === 'tomorrow' ? [classes.Button, classes.ButtonActive].join(' ') : classes.Button} 
+                            onClick={() => this.dateButtonClickHandler('tomorrow')}>
                             {this.state.dayTwo[0].formatedDate} {this.state.dayTwo[0].weekDay}
                         </button>
                     </div>
@@ -76,7 +80,7 @@ class WeatherCards extends Component {
 
 const mapStateToProps = state => {
     return {
-        course: state.course
+        course: state.courseForWeather
     }
 }
 
