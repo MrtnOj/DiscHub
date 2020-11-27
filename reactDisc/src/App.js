@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
-import ScoreCards from './containers/ScoreCard/Cards/Cards';
+// import ScoreCards from './containers/ScoreCard/Cards/Cards';
 import ChooseCourse from './containers/ChooseCourse/ChooseCourse';
 import ScoreCardInit from './containers/ScoreCard/ScoreCardInit/ScoreCardInit';
-import Auth from './containers/Auth/Auth';
+// import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
-import RoundScores from './containers/Rounds/RoundScores';
-import RoundScoreCard from './containers/Rounds/RoundScoreCard/RoundScoreCard';
-import WeatherCards from './containers/Weather/WeatherCards';
+// import RoundScores from './containers/Rounds/RoundScores';
+// import RoundScoreCard from './containers/Rounds/RoundScoreCard/RoundScoreCard';
+// import WeatherCards from './containers/Weather/WeatherCards';
 import * as actions from './store/actions/auth';
+
+const ScoreCards = lazy(() => import('./containers/ScoreCard/Cards/Cards'));
+const WeatherCards = lazy(() => import('./containers/Weather/WeatherCards'));
+const Auth = lazy(() => import('./containers/Auth/Auth'));
+const RoundScores = lazy(() => import('./containers/Rounds/RoundScores'));
+const RoundScoreCard = lazy(() => import('./containers/Rounds/RoundScoreCard/RoundScoreCard'));
 
 
 class App extends Component {
@@ -50,7 +56,9 @@ class App extends Component {
 
     return (
       <Layout>
-        {routes}
+        <Suspense fallback={<div>Loading...</div>}>
+          {routes}
+        </Suspense>
       </Layout>
     )
   } 
