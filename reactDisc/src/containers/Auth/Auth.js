@@ -54,7 +54,7 @@ class Auth extends Component {
                 valid: formValidityCheck(event.target.value, this.state.controls[controlName].validation),
                 touched: true
             }
-        };
+        }
         this.setState({ controls: updatedControls });
     }
 

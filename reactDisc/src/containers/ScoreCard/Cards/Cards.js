@@ -43,8 +43,8 @@ class Card extends Component {
                 if (this.props.currentScoringHoles.length <= 1) {
                     this.props.courseBasketsSet(holes, this.props.userId)
                 }
-            });
-    };
+            })
+    }
 
     totalScoreCalc = () => {
         let totalScores = {};
@@ -72,16 +72,16 @@ class Card extends Component {
                 const updatedElement = {
                     ...el,
                     visible: false
-                };
+                }
                 return updatedElement;
             }
-        });
+        })
         this.setState({ activePlayer: this.props.players[0].id });
-        this.props.courseBasketsSet(newVisible, this.props.userId);
-    };
+        this.props.courseBasketsSet(newVisible, this.props.userId)
+    }
 
     activePlayerHandler = (id) => {
-        this.setState({ activePlayer: id});
+        this.setState({ activePlayer: id})
     }
 
     keyboardNrButtonHandler = (btnValue) => {
@@ -127,7 +127,7 @@ class Card extends Component {
                 }
                 return updatedElement;
             }
-        });
+        })
         this.setState({ activePlayer: this.props.players[0].id });
         this.props.courseBasketsSet(newActive, this.props.userId);
     }
@@ -136,7 +136,7 @@ class Card extends Component {
         this.setState({ scoreCardValid: true})
         const playerNames = this.props.players.map(player => {
             return player.name;
-        });
+        })
         this.props.currentScoringHoles.forEach(basket => {
             let scoreInputsFilled = true;
             let validScores = true;
@@ -170,17 +170,17 @@ class Card extends Component {
                 playerScores: scoresObject,
                 date: new Date(),
                 userId: this.props.userId
-            };
+            }
             axios.post('/scores', scores, { headers: {
                 Authorization: 'Bearer ' + this.props.token
             }
         })
                 .then(response => {
-                    this.props.history.push({ pathname: '/round/' + response.data.result._id });
-                });
+                    this.props.history.push({ pathname: '/round/' + response.data.result._id })
+                })
             this.props.courseBasketsRemove()
         } else {
-            this.setState({ validityErrorDisplay: true });
+            this.setState({ validityErrorDisplay: true })
         }
     }
         
@@ -218,9 +218,9 @@ class Card extends Component {
                 <div style={{ height: '35vh'}}></div>
                 <NumericKeyboard numberPressed={this.keyboardNrButtonHandler} arrowPressed={this.keyBoardArrowHandler} />
             </div>
-        );
+        )
     }
-};
+}
 
 const mapStateToProps = state => {
     return {

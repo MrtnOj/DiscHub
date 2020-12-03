@@ -47,14 +47,14 @@ class RoundScores extends Component {
                 {scoreTiles}
             </div>
         );  
-    };
+    }
 }
 
 const mapStateToProps = state => {
     return {
         token: state.token,
         user: state.userId
-    };
+    }
 }
 
 export default connect(mapStateToProps)(RoundScores);

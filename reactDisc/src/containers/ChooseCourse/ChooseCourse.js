@@ -15,7 +15,7 @@ class ChooseCourse extends Component {
         courses: [],
         suggestions: [],
         courseSelected: false
-    };
+    }
 
     componentDidMount () {
         axios.get('/courses')
@@ -25,7 +25,7 @@ class ChooseCourse extends Component {
                 });
                 this.setState({courses: courses});
             });
-    };
+    }
 
     onInputChange = (event) => {
         const newInputValue = event.target.value;
@@ -33,13 +33,13 @@ class ChooseCourse extends Component {
         if (newInputValue.length > 0) {
             const regex = new RegExp(`^${newInputValue}`, 'i');
             suggestions = this.state.courses.sort().filter(course => regex.test(course));
-        };
+        }
         this.setState({ suggestions: suggestions, inputValue: newInputValue });
-    };
+    }
 
     suggestionSelected = (value) => {
         this.setState({ inputValue: value, suggestions: [], courseSelected: true });
-    };
+    }
 
     courseSelectRedirectToInit = () => {
         this.props.courseBasketsRemove();
@@ -81,7 +81,7 @@ class ChooseCourse extends Component {
                 </ul>
             </div>
         )
-    };
+    }
 
     render () {
         const { inputValue } = this.state;
@@ -130,7 +130,8 @@ class ChooseCourse extends Component {
             </Auxiliary>
         );
     }
-};
+}
+
 const mapStateToProps = state => {
     return {
         course: state.course,

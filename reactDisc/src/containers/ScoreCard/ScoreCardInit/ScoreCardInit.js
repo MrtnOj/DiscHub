@@ -42,11 +42,11 @@ class ScoreCardInit extends Component {
             const playersArray = [{ name: this.props.userName, id: this.props.userId }];
             this.setState({ players: playersArray });
         }
-    };
+    }
 
     addPlayerBtnClicked = () => {
         this.setState({ addingPlayer: true });
-    };
+    }
 
     onPlayerSubmit = () => {
         if (this.state.nameInputControls.valid) {
@@ -69,7 +69,7 @@ class ScoreCardInit extends Component {
            return player.id !== id;
         });
         this.setState({ players: newPlayers })
-    };
+    }
 
     onPlayerInputChange = (event) => {
         const newInputControls = {
@@ -83,7 +83,7 @@ class ScoreCardInit extends Component {
 
     courseInputChangeHandler = (courseInputValue) => {
         this.setState( { courseName: courseInputValue } );
-    };
+    }
 
     onSubmitRedirect = () => {
         if (this.state.players.length !== 0) {
@@ -96,7 +96,7 @@ class ScoreCardInit extends Component {
             return (
                 <PlayerBlock key={player.id} playerName={player.name} removePlayer={() => this.removePlayerHandler(player.id)} />
             )
-        });
+        })
 
         return (
             <Auxiliary>
@@ -129,9 +129,9 @@ class ScoreCardInit extends Component {
                     </Button>
                 </div>
             </Auxiliary>
-        );
+        )
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
@@ -139,7 +139,7 @@ const mapStateToProps = state => {
         players: state.playerInputs,
         userName: state.userName,
         userId: state.userId,
-    };
+    }
 }
 
 const mapDispatchToProps = dispatch => {

@@ -3,14 +3,9 @@ import { Route, Switch, withRouter, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
-// import ScoreCards from './containers/ScoreCard/Cards/Cards';
 import ChooseCourse from './containers/ChooseCourse/ChooseCourse';
 import ScoreCardInit from './containers/ScoreCard/ScoreCardInit/ScoreCardInit';
-// import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
-// import RoundScores from './containers/Rounds/RoundScores';
-// import RoundScoreCard from './containers/Rounds/RoundScoreCard/RoundScoreCard';
-// import WeatherCards from './containers/Weather/WeatherCards';
 import * as actions from './store/actions/auth';
 
 const ScoreCards = lazy(() => import('./containers/ScoreCard/Cards/Cards'));
@@ -36,7 +31,7 @@ class App extends Component {
         <Route path="/" exact component={ChooseCourse} />
         <Redirect to="/" />
       </Switch>
-    );
+    )
 
     if ( this.props.token !== null ) {
       routes = (
@@ -51,7 +46,7 @@ class App extends Component {
           <Route path="/" exact component={ChooseCourse} />
           <Redirect to="/" />
         </Switch>
-      );
+      )
     }
 
     return (
@@ -70,13 +65,13 @@ const mapStateToProps = state => {
     userId: state.userId,
     name: state.userName,
     expirationDate: state.expirationDate
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: (token, userId, name, expirationDate) => dispatch( actions.authCheckState(token, userId, name, expirationDate) )
-  };
-};
+  }
+}
 
 export default withRouter( connect( mapStateToProps, mapDispatchToProps )( App ));

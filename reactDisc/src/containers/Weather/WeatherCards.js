@@ -29,12 +29,12 @@ class WeatherCards extends Component {
             const weatherDataArrays = readWeatherData(response.data.list);
             const dayOne = weatherDataArrays[0];
             const dayTwo = weatherDataArrays[1];
-            this.setState({ dayOne: dayOne, dayTwo: dayTwo });
+            this.setState({ dayOne: dayOne, dayTwo: dayTwo })
         })
     }
 
     dateButtonClickHandler = (day) => {
-        this.setState({ pickedDay: day});
+        this.setState({ pickedDay: day})
     }
 
     render () {
