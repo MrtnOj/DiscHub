@@ -1,6 +1,6 @@
 .CourseChoose {
     position: relative;
-    top: 60px;
+    top: 20px;
     margin: 20px auto;
     width: 80%;
     max-width: 650px;
@@ -65,12 +65,11 @@ ul {
 }
 
 .UnfinishedRoundContainer {
-    position: relative;
     display: flex;
     flex-direction: column;
-    width: 80%;
-    top: 55px;
+    width: 300px;
     margin: 0 auto;
+    padding-top: 15px;
     justify-content: center;
 }
 
@@ -80,7 +79,6 @@ ul {
 }
 
 .UnfinishedRoundButton {
-    position: relative;
     font-size: 16px;
     color: red;
     margin: 0 auto;

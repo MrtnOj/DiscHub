@@ -1,7 +1,5 @@
 .HoleCardButtons {
-    position: relative;
-    top: 40px;
-    margin: auto;
+    margin: 0 auto;
     width: 18rem;
     display: flex;
     justify-content: space-evenly;
@@ -11,9 +9,7 @@
 
 /*For when there are weird number of holes*/
 .HoleCardButtonsWeird {
-    position: relative;
-    top: 40px;
-    margin: auto;
+    margin: 0 auto;
     width: 14rem;
     display: flex;
     justify-content: center;
