@@ -207,11 +207,12 @@ class Card extends Component {
                 {!this.props.token ? <p className={classes.LoginWarning}>You need to log in to save your rounds.</p> : null }
                 {/* {this.state.validityErrorDisplay ? <p>{this.state.inValidCardMessage}</p> : null } */}
                 <Button 
-                    className={classes.SubmitScoresButton} 
+                    position="CenteredButton"
                     disabled={!this.state.scoreCardValid} 
                     btnType="Success" 
                     clicked={() => this.submitScoreHandler()}
-                >Submit scores!
+                >
+                    Submit scores!
                 </Button>
                 {/* div below is to make the page scrollable when scorecard extends below the numeric keyboard */}
                 <div style={{ height: '35vh'}}></div>

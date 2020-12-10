@@ -27,3 +27,9 @@
 .Danger {
     color: #944317;
 }
+
+.CenteredButton {
+    display: block;
+    width: auto;
+    margin: 0 auto;
+}

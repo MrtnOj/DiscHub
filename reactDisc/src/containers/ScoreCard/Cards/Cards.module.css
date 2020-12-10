@@ -1,4 +1,6 @@
 .CourseName {
+    position: relative;
+    top: 10px;
     font-size: 18px;
     width: 80vw;
     text-align: center;
@@ -13,8 +15,10 @@
     text-align: center;
 }
 
-.SubmitScoresButton {
+.Button {
     position: relative;
     display: block;
-    margin: 0 auto;
+    width: 40%;
+    left: 30%;
+    right: 30%;
 }
