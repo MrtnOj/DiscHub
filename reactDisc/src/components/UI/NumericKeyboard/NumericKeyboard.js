@@ -6,18 +6,18 @@ const numericKeyboard = (props) => {
     return (
         <div className={classes.KeyboardContainer}>
             <div className={classes.Keyboard}>
-                <div onClick={() => props.arrowPressed(false)}>Prev</div>
-                <div onClick={()=> props.numberPressed(0)}>0</div>
-                <div onClick={() => props.arrowPressed(true)}>Next</div>
-                <div onClick={()=> props.numberPressed(1)}>1</div>
-                <div onClick={()=> props.numberPressed(2)}>2</div>
-                <div onClick={()=> props.numberPressed(3)}>3</div>
-                <div onClick={()=> props.numberPressed(4)}>4</div>
-                <div onClick={()=> props.numberPressed(5)}>5</div>
-                <div onClick={()=> props.numberPressed(6)}>6</div>
-                <div onClick={()=> props.numberPressed(7)}>7</div>
-                <div onClick={()=> props.numberPressed(8)}>8</div>
-                <div onClick={()=> props.numberPressed(9)}>9</div>
+                <button onClick={() => props.arrowPressed(false)}>Prev</button>
+                <button onClick={()=> props.numberPressed(0)}>0</button>
+                <button onClick={() => props.arrowPressed(true)}>Next</button>
+                <button onClick={()=> props.numberPressed(1)}>1</button>
+                <button onClick={()=> props.numberPressed(2)}>2</button>
+                <button onClick={()=> props.numberPressed(3)}>3</button>
+                <button onClick={()=> props.numberPressed(4)}>4</button>
+                <button onClick={()=> props.numberPressed(5)}>5</button>
+                <button onClick={()=> props.numberPressed(6)}>6</button>
+                <button onClick={()=> props.numberPressed(7)}>7</button>
+                <button onClick={()=> props.numberPressed(8)}>8</button>
+                <button onClick={()=> props.numberPressed(9)}>9</button>
             </div>
         </div>
     )

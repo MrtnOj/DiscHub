@@ -18,10 +18,13 @@
     grid-template-rows: 4fr 4fr 4fr 4fr;
 }
 
-.Keyboard div {
+.Keyboard button {
     margin: 3px;
     border-radius: 3px;
+    outline: none;
     background-color: #C6DABF;
+    border: none;
+    box-shadow: 0 2px 1px #b1ab9d;
     display: flex;
     justify-content: center;
     align-items: center;

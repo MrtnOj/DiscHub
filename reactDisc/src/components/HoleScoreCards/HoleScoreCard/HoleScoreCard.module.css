@@ -13,23 +13,25 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-evenly;
-}
-
-.scoreCard h4 {
-    display: inline;
     margin: 0;
     padding: 0;
 }
 
-.Divider {
-    background-color: #F3E9D2;
-    height: 2px;
-    margin-bottom: 10px;
+.scoreCard h2 {
+    font-size: 18px;
+    margin: 10px;
+    padding: 0;
 }
 
-.cardTitle {
-    margin: 10px 0;
-    text-align: center;
+.scoreCard span {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.Divider {
+    height: 2px;
+    background-color: #c2c7bf;
+    margin-bottom: 10px;
 }
 
 @media (min-width: 600px) {

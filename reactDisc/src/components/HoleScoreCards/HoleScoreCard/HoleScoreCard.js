@@ -4,13 +4,10 @@ import classes from './HoleScoreCard.module.css';
 import PersonScore from './PersonScoring/PersonScoring';
 
 const HoleScoreCard = (props) => (
-    <div className={classes.scoreCard} style={{ display: props.active ? 'block' : 'none' }}>
-        <div className={classes.cardTitle}>
-            <h4>Hole {props.holeNumber} -</h4>
-            <span> par {props.par}</span>
-        </div>
+    <article className={classes.scoreCard} style={{ display: props.active ? 'block' : 'none' }}>
+        <h2>Hole {props.holeNumber} - <span> par {props.par}</span></h2>
         <div className={classes.Divider}></div>
-        <div className={classes.playerElements}>
+        <p className={classes.playerElements}>
             {props.players.map(player => (
                 <PersonScore mong={player.name}
                 score={props.scores[player.name]}
@@ -22,8 +19,8 @@ const HoleScoreCard = (props) => (
                 key={player.id}
                 holeNr={props.holeNumber} />
             ))}
-        </div>    
-    </div>
+        </p>    
+    </article>
 );
 
 export default HoleScoreCard;

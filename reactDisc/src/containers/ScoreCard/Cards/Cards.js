@@ -41,6 +41,7 @@ class Card extends Component {
                     }
                 });
                 this.setState({ activePlayer: this.props.players[0].id });
+                this.scoreCardValidityChecker();
                 if (this.props.currentScoringHoles.length <= 1) {
                     this.props.courseBasketsSet(holes, this.props.userId)
                 }

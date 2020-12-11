@@ -7,12 +7,15 @@
     z-index: 5;
     box-sizing: border-box;
     height: 45px;
+    margin: 0;
 }
 
-.personScoring h4 {
+.PlayerName {
   position: relative;
+  display: inline;
   width: 40%;
   height: 100%;
+  font-size: 18px;
   text-align: left;
   line-height: 45px;
   padding: 0;
@@ -37,11 +40,9 @@
   height: 30px;
   width: 30px;
   text-align: center;
-}
-
-.scoreInput span {
-  text-align: center;
   line-height: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 .scoreInputActive {
@@ -49,7 +50,7 @@
   border: 2px solid #114B5F;
 }  
 
-input::-webkit-outer-spin-button,
+/* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -57,4 +58,4 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
-}
+} */
