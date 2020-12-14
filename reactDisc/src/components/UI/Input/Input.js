@@ -44,12 +44,13 @@ const input = ( props ) => {
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
+                name={props.name}
                 onChange={props.changed} />;
     }
 
     return (
         <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}</label>
+            <label for={props.name} className={classes.Label}>{props.label}</label>
             {inputElement}
         </div>
     );

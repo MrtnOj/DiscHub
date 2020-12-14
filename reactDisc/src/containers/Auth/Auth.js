@@ -16,7 +16,8 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    placeholder: 'e-mail address'
+                    placeholder: 'e-mail address',
+                    name: 'email'
                 },
                 value: '',
                 validation: {
@@ -30,7 +31,8 @@ class Auth extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'Password'
+                    placeholder: 'Password',
+                    name: 'password'
                 },
                 value: '',
                 validation: {
@@ -94,7 +96,8 @@ class Auth extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'name',
-                        placeholder: 'Username'
+                        placeholder: 'Username',
+                        name: 'username'
                     },
                     value: '',
                     validation: {
@@ -127,6 +130,8 @@ class Auth extends Component {
                 invalid={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
+                label={formElement.config.elementConfig.type}
+                name={formElement.config.elementConfig.name}
                 changed={(event) => this.inputChangedHandler(event, formElement.id)}
             />
         ));
@@ -153,20 +158,26 @@ class Auth extends Component {
         }
 
         return (
-            <div className={classes.Auth}>
+            <article className={classes.Auth}>
                 {errorMessage}
                 {authRedirect}
                 {signUpSuccessfulMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <Button btnType="Success">Submit</Button>
+                    <Button type="submit" 
+                        label="Submit" 
+                        btnType="Success">
+                        {this.state.isSignIn ? 'LOG IN' : 'REGISTER'}
+                    </Button>
                 </form>
                 <Button 
                     clicked={this.switchAuthModeHandler}
+                    type="button"
+                    label="Change forms"
                     btnType="Danger">
-                    SWITCH TO {this.state.isSignIn ? 'REGISTER' : 'LOGIN'}
+                    {this.state.isSignIn ? 'Switch to register' : 'Switch to login'}
                 </Button>
-            </div>
+            </article>
         )
     }
 }
