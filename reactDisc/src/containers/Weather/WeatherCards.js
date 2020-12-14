@@ -55,24 +55,30 @@ class WeatherCards extends Component {
 
         return (
             <Auxiliary>
-                <div className={classes.WeatherCardWrapper}>
-                    <h3>{this.props.course.name}</h3>
+                <article className={classes.WeatherCardWrapper}>
+                    <h1>{this.props.course.name}</h1>
                     <div className={classes.ButtonsContainer}>
+                        <label htmlFor="weather-today">Weather info for today</label>
                         <button 
                             className={this.state.pickedDay === 'today' ? [classes.Button, classes.ButtonActive].join(' ') : classes.Button} 
-                            onClick={() => this.dateButtonClickHandler('today')}>
+                            onClick={() => this.dateButtonClickHandler('today')}
+                            type="button"
+                            name="weather-today">
                             {this.state.dayOne[0].formatedDate} {this.state.dayOne[0].weekDay}
                         </button>
+                        <label htmlFor="weather-tomorrow">Weather info for tomorrow</label>
                         <button 
                             className={this.state.pickedDay === 'tomorrow' ? [classes.Button, classes.ButtonActive].join(' ') : classes.Button} 
-                            onClick={() => this.dateButtonClickHandler('tomorrow')}>
+                            onClick={() => this.dateButtonClickHandler('tomorrow')}
+                            type="button"
+                            name="weather-tomorrow">
                             {this.state.dayTwo[0].formatedDate} {this.state.dayTwo[0].weekDay}
                         </button>
                     </div>
                     <div className={classes.WeatherCards}>
                         <WeatherCards />
                     </div>
-                </div>
+                </article>
             </Auxiliary>
         )
     }

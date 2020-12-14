@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../../axiosApi';
+import axios from '../../../util/axiosApi';
 import HoleCardButtons from '../../../components/HoleCardButtons/HoleCardButtons';
 import HoleScoreCard from '../../../components/HoleScoreCards/HoleScoreCard/HoleScoreCard';
 import NumericKeyboard from '../../../components/UI/NumericKeyboard/NumericKeyboard';

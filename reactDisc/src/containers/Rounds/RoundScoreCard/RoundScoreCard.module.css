@@ -9,6 +9,16 @@
     font-size: 0.9em;
 }
 
+.TableContainer h1 {
+    margin: 5px;
+    padding: 0;
+}
+
+.TableContainer p {
+    margin: 5px;
+    padding: 0;
+}
+
 .TableContainer table {
     border-collapse: collapse;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../axiosApi';
+import axios from '../../util/axiosApi';
 import classes from './ChooseCourse.module.css';
 
 import Button from '../../components/UI/Button/Button';

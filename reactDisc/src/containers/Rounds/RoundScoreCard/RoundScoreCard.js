@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive';
 
 import tableCellColorAssign from '../../../util/tableCellColorAssign';
 import classes from './RoundScoreCard.module.css';
-import axios from '../../../axiosApi';
+import axios from '../../../util/axiosApi';
 
 class RoundScoreCard extends Component {
     state = {
@@ -158,8 +158,8 @@ class RoundScoreCard extends Component {
 
     render () {
         return (
-            <div className={classes.TableContainer}>
-                <h3>{this.state.courseName}</h3>
+            <article className={classes.TableContainer}>
+                <h1>{this.state.courseName}</h1>
                 <p>{this.state.date}</p>
                 <MediaQuery minWidth={630}>
                     {this.createTable()}
@@ -167,7 +167,7 @@ class RoundScoreCard extends Component {
                 <MediaQuery maxWidth={629}>
                     {this.createMobileTable()}
                 </MediaQuery>
-            </div>
+            </article>
         );
     }
 }

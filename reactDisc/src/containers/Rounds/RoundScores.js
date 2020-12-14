@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from '../../axiosApi';
+import axios from '../../util/axiosApi';
 import RoundTile from '../../components/SavedRoundComponents/RoundTitleTiles/RoundTile';
-//import classes from './RoundScores.module.css';
 
 class RoundScores extends Component {
     state = {
@@ -42,10 +41,9 @@ class RoundScores extends Component {
         });
 
         return (
-            <div>
-                {this.state.notAuthenticatedRedirect}
-                {scoreTiles}
-            </div>
+            <React.Fragment>
+                {scoreTiles.reverse()}
+            </React.Fragment>
         );  
     }
 }

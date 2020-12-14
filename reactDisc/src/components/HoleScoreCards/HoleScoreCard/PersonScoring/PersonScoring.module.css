@@ -1,4 +1,4 @@
-.personScoring {
+.PersonScoring {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,9 +13,9 @@
 .PlayerName {
   position: relative;
   display: inline;
-  width: 40%;
+  width: 50%;
   height: 100%;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
   line-height: 45px;
   padding: 0;
@@ -32,11 +32,7 @@
   margin: 0 20px 0 0;
 }
 
-.personScoringActive {
-  /* color: #114B5F; */
-}
-
-.scoreInput {
+.ScoreInput {
   height: 30px;
   width: 30px;
   text-align: center;
@@ -45,7 +41,7 @@
   padding: 0;
 }
 
-.scoreInputActive {
+.ScoreInputActive {
   background-color: #F3E9D2;
   border: 2px solid #114B5F;
 }  

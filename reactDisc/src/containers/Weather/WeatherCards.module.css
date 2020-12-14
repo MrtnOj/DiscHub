@@ -1,6 +1,6 @@
 .WeatherCardWrapper {
     position: relative;
-    top: 50px;
+    top: 30px;
     width: 90%;
     height: 30vh;
     margin: auto;
@@ -8,12 +8,24 @@
     justify-items: center;
 }
 
-.WeatherCardWrapper h3 {
+.WeatherCardWrapper h1 {
     position: relative;
     display: block;
+    font-size: 20px;
     width: 80vw;
     text-align: center;
-    margin: 0 auto;
+    margin: 10px auto;
+}
+
+.WeatherCardWrapper label{
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
 
 .WeatherCards {
@@ -53,5 +65,9 @@
 @media (min-width: 800px) {
     .WeatherCards {
         flex-direction: row;
+    }
+
+    .WeatherCardWrapper h1 {
+        font-size: 22px;
     }
 }
