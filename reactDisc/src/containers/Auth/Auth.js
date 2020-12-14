@@ -44,7 +44,8 @@ class Auth extends Component {
             },
         },
         isSignIn: true,
-	    regSuccessMsg: null
+        regSuccessMsg: null,
+        errorMessage: null
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -77,10 +78,11 @@ class Auth extends Component {
                     }
                 };
                 delete newControls.name;
-                this.setState({ regSuccessMsg: this.props.signUpMessage, controls: newControls, isSignIn: true })
+                this.setState({ regSuccessMsg: this.props.signUpMessage, controls: newControls, isSignIn: true, errorMessage: this.props.error })
             }, 500)
         } else {
-            this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
+            this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value)
+            this.setState({ errorMessage: this.props.error });
         }
     }
 
@@ -140,32 +142,20 @@ class Auth extends Component {
             form = <Spinner />
         }
 
-        let errorMessage = null;
-        if (this.props.error) {
-            errorMessage = (
-                <p>{this.props.error}</p>
-            );
-        }
-
         let authRedirect = null;
         if ( this.props.isAuthenticated ) {
             authRedirect = <Redirect to="/" />
         }
 
-	    let signUpSuccessfulMessage = null;
-        if (!this.props.isAuthenticated && this.state.regSuccessMsg) {
-            signUpSuccessfulMessage = <p>{this.state.regSuccessMsg}</p>;
-        }
-
         return (
             <article className={classes.Auth}>
-                {errorMessage}
+                {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
                 {authRedirect}
-                {signUpSuccessfulMessage}
+                {this.state.regSuccessMsg ? <p>{this.state.regSuccessMsg}</p> : null}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button type="submit" 
-                        label="Submit" 
+                        name="submit form"
                         btnType="Success">
                         {this.state.isSignIn ? 'LOG IN' : 'REGISTER'}
                     </Button>
@@ -173,7 +163,7 @@ class Auth extends Component {
                 <Button 
                     clicked={this.switchAuthModeHandler}
                     type="button"
-                    label="Change forms"
+                    name="form change"
                     btnType="Danger">
                     {this.state.isSignIn ? 'Switch to register' : 'Switch to login'}
                 </Button>

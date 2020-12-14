@@ -7,7 +7,6 @@ import classes from './ChooseCourse.module.css';
 import Button from '../../components/UI/Button/Button';
 import { courseBasketsRemove, courseClicked } from '../../store/actions/scoreCardInit';
 import { weatherCourseSet } from '../../store/actions/weather';
-import Auxiliary from '../../hoc/Auxiliary';
 
 class ChooseCourse extends Component {
     state = {
@@ -89,29 +88,32 @@ class ChooseCourse extends Component {
         let unfinishedRound = null;
         if (this.props.currentScoringHoles.length > 1 && this.props.currentScoringId === this.props.userId) {
             unfinishedRound = (
-                <div className={classes.UnfinishedRoundContainer}>
-                    <span className={classes.UnfinishedRoundText}>You have an unfinished round </span>
+                <aside className={classes.UnfinishedRoundContainer}>
+                    <h2 className={classes.UnfinishedRoundText}>You have an unfinished round </h2>
                     <button 
                         className={classes.UnfinishedRoundButton}
                         onClick={() => this.props.history.push('/scoring')}
                     >
                         {this.props.course.name}
                     </button>
-                </div>
+                </aside>
             )
         }
 
         return (
-            <Auxiliary>
-                <div className={classes.CourseChoose}>
-                    <h3>Search for a course</h3> 
-                    <input value={inputValue} onChange={this.onInputChange} type="text"></input>
+            <React.Fragment>
+                <article className={classes.CourseChoose}>
+                    <h1>Search for a course</h1> 
+                    <label htmlFor="course-search">Search for a course</label>
+                    <input value={inputValue} onChange={this.onInputChange} id="course-search" name="course search" type="search"></input>
                     <div className={classes.SuggestionBoxContainer}>
                         {this.renderSuggestions()}
                     </div>
-                    <div className={classes.ButtonsContainer}>
+                    <section className={classes.ButtonsContainer}>
                         <Button 
-                            btnType="Success" 
+                            btnType="Success"
+                            type="submit"
+                            name="start round" 
                             clicked={() => {
                                 this.courseSelectRedirectToInit()
                             }}>
@@ -119,15 +121,17 @@ class ChooseCourse extends Component {
                         </Button>
                         <Button 
                             btnType="Success"
+                            type="button"
+                            name="check weather"
                             clicked={() => {
                                 this.courseSelectRedirectToWeather()
                             }}>
                             Check Weather
                         </Button>
-                    </div>
-                </div>
+                    </section>
+                </article>
                 {unfinishedRound}
-            </Auxiliary>
+            </React.Fragment>
         );
     }
 }

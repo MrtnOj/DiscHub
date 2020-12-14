@@ -45,12 +45,13 @@ const input = ( props ) => {
                 {...props.elementConfig}
                 value={props.value}
                 name={props.name}
+                id={props.name}
                 onChange={props.changed} />;
     }
 
     return (
         <div className={classes.Input}>
-            <label for={props.name} className={classes.Label}>{props.label}</label>
+            <label htmlFor={props.name} className={classes.Label}>{props.label}</label>
             {inputElement}
         </div>
     );
