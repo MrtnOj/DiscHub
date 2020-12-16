@@ -5,7 +5,6 @@ import Button from '../../../components/UI/Button/Button';
 import Modal from '../../../components/UI/Modal/Modal';
 import Input from '../../../components/UI/Input/Input';
 import PlayerBlock from '../../../components/ScoreCardInitComponents/PlayerBlock/PlayerBlock';
-import Auxiliary from '../../../hoc/Auxiliary';
 import formValidityCheck from '../../../util/formValidityCheck';
 import { startRoundClicked } from '../../../store/actions/scoreCardInit';
 
@@ -48,7 +47,8 @@ class ScoreCardInit extends Component {
         this.setState({ addingPlayer: true });
     }
 
-    onPlayerSubmit = () => {
+    onPlayerSubmit = (event) => {
+        event.preventDefault();
         if (this.state.nameInputControls.valid) {
             let newPlayersArray = this.state.players;
             newPlayersArray.push({ name: this.state.nameInputControls.value, id: `${this.state.nameInputControls.value + Math.floor(Math.random()*1000)}`})
@@ -99,36 +99,59 @@ class ScoreCardInit extends Component {
         })
 
         return (
-            <Auxiliary>
+            <React.Fragment>
                 <Modal show={this.state.addingPlayer}>
-                    <Input 
-                        elementConfig={this.state.nameInputControls.elementConfig}
-                        value={this.state.nameInputControls.value}
-                        invalid={!this.state.nameInputControls.valid}
-                        shouldValidate={this.state.nameInputControls.validation.required}
-                        touched={this.state.nameInputControls.touched}
-                        changed={(event) => this.onPlayerInputChange(event)} 
-                    />
-                    <div className={classes.ModalButtonsContainer}>
-                        <Button btnType="Success" clicked={this.onPlayerSubmit}>ADD</Button>
-                        <Button btnType="Danger" clicked={this.cancelAddPlayer}>CANCEL</Button>
-                    </div>
+                    <form>
+                        <Input 
+                            elementConfig={this.state.nameInputControls.elementConfig}
+                            value={this.state.nameInputControls.value}
+                            invalid={!this.state.nameInputControls.valid}
+                            shouldValidate={this.state.nameInputControls.validation.required}
+                            touched={this.state.nameInputControls.touched}
+                            changed={(event) => this.onPlayerInputChange(event)} 
+                        />
+                        <section className={classes.ModalButtonsContainer}>
+                            <Button 
+                                btnType="Success" 
+                                clicked={this.onPlayerSubmit}
+                                type="submit"
+                                name="add-player"
+                            >
+                                ADD
+                            </Button>
+                            <Button 
+                                btnType="Danger" 
+                                clicked={this.cancelAddPlayer}
+                                type="button"
+                                name="cancel"
+                            >
+                                CANCEL
+                            </Button>
+                        </section>
+                    </form>
                 </Modal>
-                <div className={classes.InitBox}>
-                    <h2>{this.props.course.name}</h2>
+                <article className={classes.InitBox}>
+                    <h1>{this.props.course.name}</h1>
                     {playersOnInitCard}
-                    <Button clicked={this.addPlayerBtnClicked}
-                        btnType="Success">
+                    <Button 
+                        clicked={this.addPlayerBtnClicked}
+                        btnType="Success"
+                        type="button"
+                        name="add-player"
+                    >
                         +Add
                     </Button>
                     <Button clicked={() => {
                         this.props.startRoundClicked(this.state.players);
                         this.onSubmitRedirect()}}
-                        btnType="Success">
+                        btnType="Success"
+                        type="button"
+                        name="start-game"
+                    >
                         START
                     </Button>
-                </div>
-            </Auxiliary>
+                </article>
+            </React.Fragment>
         )
     }
 }

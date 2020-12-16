@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import readWeatherData from '../../util/readWeatherData';
 import WeatherCard from '../../components/WeatherCard/weatherCard';
-import Auxiliary from '../../hoc/Auxiliary';
 
 class WeatherCards extends Component {
     state = {
@@ -26,9 +25,11 @@ class WeatherCards extends Component {
             }
         })
         .then(response => {
-            const weatherDataArrays = readWeatherData(response.data.list);
-            const dayOne = weatherDataArrays[0];
-            const dayTwo = weatherDataArrays[1];
+            return readWeatherData(response.data.list)
+        })
+        .then(dataArrays => {
+            const dayOne = dataArrays[0];
+            const dayTwo = dataArrays[1];
             this.setState({ dayOne: dayOne, dayTwo: dayTwo })
         })
     }
@@ -54,7 +55,7 @@ class WeatherCards extends Component {
             })
 
         return (
-            <Auxiliary>
+            <React.Fragment>
                 <article className={classes.WeatherCardWrapper}>
                     <h1>{this.props.course.name}</h1>
                     <div className={classes.ButtonsContainer}>
@@ -79,7 +80,7 @@ class WeatherCards extends Component {
                         <WeatherCards />
                     </div>
                 </article>
-            </Auxiliary>
+            </React.Fragment>
         )
     }
 }

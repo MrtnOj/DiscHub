@@ -149,9 +149,9 @@ class Auth extends Component {
 
         return (
             <article className={classes.Auth}>
-                {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
+                {this.state.errorMessage && !this.props.loading ? <p>{this.state.errorMessage}</p> : null}
                 {authRedirect}
-                {this.state.regSuccessMsg ? <p>{this.state.regSuccessMsg}</p> : null}
+                {this.state.regSuccessMsg && !this.props.loading ? <p>{this.state.regSuccessMsg}</p> : null}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button type="submit" 
