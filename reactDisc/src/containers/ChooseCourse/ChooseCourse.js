@@ -105,7 +105,7 @@ class ChooseCourse extends Component {
                 <article className={classes.CourseChoose}>
                     <h1>Search for a course</h1> 
                     <label htmlFor="course-search">Search for a course</label>
-                    <input value={inputValue} onChange={this.onInputChange} id="course-search" name="course search" type="search"></input>
+                    <input autocomplete="off" value={inputValue} onChange={this.onInputChange} id="course-search" name="course search" type="search"></input>
                     <div className={classes.SuggestionBoxContainer}>
                         {this.renderSuggestions()}
                     </div>

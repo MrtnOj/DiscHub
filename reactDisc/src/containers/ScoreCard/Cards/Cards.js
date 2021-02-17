@@ -211,6 +211,7 @@ class Card extends Component {
                     position="CenteredButton"
                     disabled={!this.state.scoreCardValid} 
                     btnType="Success" 
+                    name="Submit scores"
                     clicked={() => this.submitScoreHandler()}
                 >
                     Submit scores!

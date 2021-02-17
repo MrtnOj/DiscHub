@@ -155,7 +155,7 @@ class Auth extends Component {
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button type="submit" 
-                        name="submit form"
+                        name="Submit form"
                         btnType="Success">
                         {this.state.isSignIn ? 'LOG IN' : 'REGISTER'}
                     </Button>
@@ -163,7 +163,7 @@ class Auth extends Component {
                 <Button 
                     clicked={this.switchAuthModeHandler}
                     type="button"
-                    name="form change"
+                    name="Switch between register and login"
                     btnType="Danger">
                     {this.state.isSignIn ? 'Switch to register' : 'Switch to login'}
                 </Button>

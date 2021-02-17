@@ -69,5 +69,6 @@
 
     .WeatherCardWrapper h1 {
         font-size: 22px;
+        margin: 30px auto;
     }
 }
