@@ -12,10 +12,15 @@ const numericKeyboard = (props) => {
     return (
         <div className={classes.KeyboardContainer}>
             <div className={classes.Keyboard}>
-                {keys.map(key => 
-                    <button 
-                        onClick={() => props.arrowPressed(key.value)}
-                        style={{cursor: 'pointer'}}>{key.label}</button>)}
+                {keys.map(key => {
+                     const clickFunction = key.value === Boolean ? props.arrowPressed : props.numberPressed
+                     return (
+                        <button 
+                            onClick={() => clickFunction(key.value)}
+                            style={{cursor: 'pointer'}}>{key.label}
+                        </button>)}
+                     )
+                }
             </div>
         </div>
     )
