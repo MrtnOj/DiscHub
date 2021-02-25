@@ -3,8 +3,6 @@ import React from 'react';
 import classes from './Button.module.css';
 
 const button = (props) => (
-    <React.Fragment>
-        {/* <label htmlFor={props.name}>{props.name}</label> */}
         <button
             disabled={props.disabled}
             className={[classes.Button, classes[props.btnType], classes[props.position]].join(' ')}
@@ -14,7 +12,6 @@ const button = (props) => (
         >
             {props.children}
         </button>
-    </React.Fragment>
 );
 
 export default button;

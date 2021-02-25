@@ -1,20 +1,17 @@
 .CourseChoose {
-    position: relative;
-    top: 20px;
-    margin: 20px auto;
-    width: 80%;
+    margin: 100px auto 10px auto;
+    width: 85%;
     max-width: 650px;
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
     border: 1px solid #eee;
-    padding: 10px;
+    padding: 20px 15px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
 }
 
 .CourseChoose h1 {
-    font-size: 20px
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
 .CourseChoose label{
@@ -28,19 +25,21 @@
     width: 1px;
 }
 
-input {
+.CourseChoose input {
     outline: none;
     border: 1px solid #ccc;
+    border-radius: 5px;
     background-color: white;
     padding: 6px 10px;
     display: block;
     width: 100%;
     box-sizing: border-box;
+    font-size: 1.2rem;
 }
 
 input:focus {
     outline: none;
-    background-color: #ccc;
+    background-color: rgb(226, 224, 224);
 }
 
 .SuggestionBoxContainer {
@@ -54,11 +53,13 @@ input:focus {
     display: flex;
     justify-content: center;
     font-size: 14px;
+    margin: 30px 0 15px 0;
 }
 
 .ButtonsContainer button {
-    margin: 6px;
-    padding: 6px;
+    margin: 10px;
+    padding: 10px;
+    width: 45%;
 }
 
 .AutoCompleteBox {
@@ -77,6 +78,16 @@ ul {
     padding: 0;
     margin: 0;
     list-style: none;
+}
+
+.SelectCourseMessage {
+    color: red;
+    position: absolute;
+    display: block;
+    left: 0;
+    right: 0;
+    margin: 5px auto;
+    width: 250px;
 }
 
 .UnfinishedRoundContainer {
@@ -117,18 +128,27 @@ ul {
 }
 
 .AutoCompleteBox li:hover {
-    background-color: #99e6c8;
+    background-color: #6d817a;
     color: white;
 }
 
 @media(min-width: 600px) {
     .CourseChoose {
-        width: 50%;
+        width: 60%;
+    }
+
+    .CourseChoose h1 {
+        font-size: 22px;
     }
 
     .ButtonsContainer {
         justify-content: space-around;
     }
+
+    .ButtonsContainer button {
+        width: 35%;
+    }
+    
     .AutoCompleteBox li {
         font-size: 20px
     }

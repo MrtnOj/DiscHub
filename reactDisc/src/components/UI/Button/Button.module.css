@@ -1,50 +1,52 @@
 .Button {
     background-color: transparent;
-    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 2px 1px 1px #ccc;
+    border: 2px solid #166b4d;
     color: white;
+    background-color: #166b4d;
     outline: none;
     cursor: pointer;
     font: inherit;
-    padding: 10px;
+    padding: 10px 15px;
     margin: 10px;
     font-weight: bold;
 }
 
 .Button:focus {
-    border-bottom: 1px solid red;   
+    box-shadow: none;  
 }
 
-/* .Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
-} */
-
 .Button:disabled {
-    color: #ccc;
+    color: #ccc !important;
+    box-shadow: none;
     cursor: not-allowed;
+    border: 2px solid #ccc;
+    background-color: white;
+    
 }
 
 .Success {
-    color: #5C9210;
+    color: white;
+}
+
+.Success:hover {
+    color: #166b4d;
+    background-color: white;
 }
 
 .Danger {
-    color: #944317;
+    background-color: #A26967;
+    border-color: #A26967;
+}
+
+.Danger:hover {
+    background-color: white;
+    color: #A26967;
 }
 
 .CenteredButton {
     display: block;
     width: auto;
     margin: 0 auto;
-}
-
-label{
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }

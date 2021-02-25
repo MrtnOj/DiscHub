@@ -9,23 +9,18 @@
 
 .LoginWarning {
     width: 80vw;
-    margin: 0 auto;
+    margin: 20px auto;
     color: red;
     font-size: 12px;
     text-align: center;
-}
-
-.Button {
-    position: relative;
-    display: block;
-    width: 40%;
-    left: 30%;
-    right: 30%;
 }
 
 @media (min-width: 660px) {
     .CourseName {
         top: 40px;
         font-size: 22px;
+    }
+    .LoginWarning {
+        margin: 20px auto;
     }
 }

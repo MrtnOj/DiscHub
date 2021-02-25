@@ -13,7 +13,8 @@ class ChooseCourse extends Component {
         inputValue: '',
         courses: [],
         suggestions: [],
-        courseSelected: false
+        courseSelected: false,
+        buttonClicked: false
     }
 
     componentDidMount () {
@@ -52,6 +53,7 @@ class ChooseCourse extends Component {
             })
             this.props.history.push('/playerselect');
         }
+        this.setState({ buttonClicked: true })
     }
 
     courseSelectRedirectToWeather = () => {
@@ -65,6 +67,7 @@ class ChooseCourse extends Component {
             })
             this.props.history.push('/weather')
         } 
+        this.setState({ buttonClicked: true })
     }
 
     renderSuggestions () {
@@ -100,6 +103,11 @@ class ChooseCourse extends Component {
             )
         }
 
+        let selectCourseMessage = null;
+        if (!this.state.courseSelected && this.state.buttonClicked) {
+            selectCourseMessage = <p className={classes.SelectCourseMessage}>Select a course to proceed</p>
+        }
+
         return (
             <React.Fragment>
                 <article className={classes.CourseChoose}>
@@ -109,6 +117,7 @@ class ChooseCourse extends Component {
                     <div className={classes.SuggestionBoxContainer}>
                         {this.renderSuggestions()}
                     </div>
+                    {selectCourseMessage}
                     <section className={classes.ButtonsContainer}>
                         <Button 
                             btnType="Success"
@@ -117,7 +126,7 @@ class ChooseCourse extends Component {
                             clicked={() => {
                                 this.courseSelectRedirectToInit()
                             }}>
-                            Start a Round
+                            Start Round
                         </Button>
                         <Button 
                             btnType="Success"
@@ -126,7 +135,7 @@ class ChooseCourse extends Component {
                             clicked={() => {
                                 this.courseSelectRedirectToWeather()
                             }}>
-                            Check Weather
+                            Weather
                         </Button>
                     </section>
                 </article>

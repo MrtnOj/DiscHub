@@ -100,6 +100,27 @@ class ScoreCardInit extends Component {
 
         return (
             <React.Fragment>
+                <article className={classes.InitBox}>
+                    <h1>{this.props.course.name}</h1>
+                    {playersOnInitCard}
+                    <Button 
+                        clicked={this.addPlayerBtnClicked}
+                        btnType="Success"
+                        type="button"
+                        name="add-player"
+                    >
+                        +Add
+                    </Button>
+                    <Button clicked={() => {
+                        this.props.startRoundClicked(this.state.players);
+                        this.onSubmitRedirect()}}
+                        btnType="Success"
+                        type="button"
+                        name="start-game"
+                    >
+                        START
+                    </Button>
+                </article>
                 <Modal show={this.state.addingPlayer}>
                     <form>
                         <Input 
@@ -130,27 +151,6 @@ class ScoreCardInit extends Component {
                         </section>
                     </form>
                 </Modal>
-                <article className={classes.InitBox}>
-                    <h1>{this.props.course.name}</h1>
-                    {playersOnInitCard}
-                    <Button 
-                        clicked={this.addPlayerBtnClicked}
-                        btnType="Success"
-                        type="button"
-                        name="add-player"
-                    >
-                        +Add
-                    </Button>
-                    <Button clicked={() => {
-                        this.props.startRoundClicked(this.state.players);
-                        this.onSubmitRedirect()}}
-                        btnType="Success"
-                        type="button"
-                        name="start-game"
-                    >
-                        START
-                    </Button>
-                </article>
             </React.Fragment>
         )
     }
